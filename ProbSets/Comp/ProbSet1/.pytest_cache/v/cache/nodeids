@@ -1,0 +1,15 @@
+[
+  "test_ProbSet1.py::test_smallest_factor",
+  "test_ProbSet1.py::test_month_length",
+  "test_ProbSet1.py::test_operate",
+  "test_ProbSet1.py::test_fraction_init",
+  "test_ProbSet1.py::test_fraction_str",
+  "test_ProbSet1.py::test_fraction_float",
+  "test_ProbSet1.py::test_fraction_eq",
+  "test_ProbSet1.py::test_fraction_add",
+  "test_ProbSet1.py::test_fraction_sub",
+  "test_ProbSet1.py::test_fraction_mul",
+  "test_ProbSet1.py::test_fraction_div",
+  "test_ProbSet1.py::test_count_sets",
+  "test_ProbSet1.py::test_is_set"
+]

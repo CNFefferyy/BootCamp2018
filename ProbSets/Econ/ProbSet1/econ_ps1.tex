@@ -1,0 +1,152 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{listings}
+\lstset{frame=single,
+  language=Python,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{harvard}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+
+
+\begin{document}
+
+\begin{flushleft}
+  \textbf{\large{Problem Set \#1, Dynamic Programming}} \\
+  OSM Lab: Econ \\
+  Rebekah Dix
+\end{flushleft}
+
+\vspace{5mm}
+
+\subsubsection*{Exercise 1}
+Let $q_t$ be the number of barrels of oil she sells at time $t$. Let $b_t$ be the number of barrels of oil she has when she enters time $t$ (i.e. the current stock of oil). We find that $b_t$ is given by,
+\begin{equation}
+  b_t = B - \sum_{\tau = 1}^{t-1} q_{\tau}
+\end{equation}
+With these definitions,
+\begin{enumerate}
+  \item The state variables are in period $t$ are $b_t$, the number of barrels of oil with which she enters the period, and all current and future prices: $\{p_{\tau} \}_{\tau = t}^{\infty}$. We assume that future prices are known. As discussed in part (6), the sequence of prices will determine when/if the agent will sell oil.
+  \item The control variable is $q_t$ the number of barrels she chooses to sell in a particular period.
+  \item The transition equation is as follows,
+  \begin{equation}
+    b_{t+1} = b_t - q_t
+  \end{equation}
+  \item The sequence problem of the owner is,
+  \begin{equation}
+    \max_{\{q_t\}_{t=1}^{\infty}} \sum_{t=1}^{\infty} \left( \left(\frac{1}{1+r}\right)^{t-1} p_t q_t \right)
+  \end{equation}
+  subject to $b_{t+1} = b_t - q_t$, $q_t \geq 0$, and $b_1 = B$ for all $t$.
+
+  Let $b$ be the number of barrels the owner has, let $p$ be the current price oil sells for, and let $q$ be the number of barrels of oil she sells today. Then the Bellman equation is given by,
+  \begin{equation}
+    V(b, p) = \max_{q} \left(pq + \left(\frac{1}{1+r}\right)V(b - q) \right)
+  \end{equation}
+  \item The owner's Euler equation is,
+  \begin{equation}\label{Euler}
+    p_t = \left(\frac{1}{1+r}\right) p_{t+1}
+  \end{equation}
+  We derive this by setting up a constrained maximization problem (the sequence problem) as follows,
+  \begin{equation}
+    \mathcal{L} = \sum_{t=1}^{\infty} \left( \left(\frac{1}{1+r}\right)^{t-1} p_t q_t \right) - \lambda(B - \sum_{t=1}^{\infty} q_t)
+  \end{equation}
+  note that we assume positive prices and hence ignore the nonnegativity constraints on $q_t$. Now, taking first order conditions,
+  \begin{align*}
+    &FOC[q_t]: \left(\frac{1}{1+r}\right)^{t-1}p_t = \lambda \\
+    &FOC[q_{t+1}]: \left(\frac{1}{1+r}\right)^{t}p_{t+1} = \lambda
+  \end{align*}
+  We then find that the Euler equation is given by Equation (\ref{Euler}) for all $t$.
+  \item If $p_{t+1} = p_t$ for all $t$, then the owner will sell of the barrels of oil at time 1. This matches intuition because if price is equal across all periods but the agent discounts future periods, then she would want to sell all of her oil today. However, in the special case that $r=0$, the agent would be indifferent about the amount of oil she sells in each period and could sell a positive amount of oil in a set of periods such that her total quantity sold equals B.
+
+  If $p_{t+1} > (1+r) p_t$ for all $t$, then in an infinite horizon model, the agent will never sell, as the discounted present value of sales increases across all periods. However, in a finite horizon model with $T$ periods, the agent would sell all of her oil in period $T$. In order for there to be an interior solution, there must be a set of prices such that discounting and prices exactly offset each other. More precisely, we must have that $p_t (1 + r) = p_{t+1}$.
+\end{enumerate}
+
+\subsubsection*{Exercise 2}
+\begin{enumerate}
+  \item The state variables are $k_t$ and $z_t$.
+  \item The control variables are $c_t$, $i_t$, and $k_{t+1}$. Note that $c_t = y_t + (1+\delta)k_t - k_{t+1}$.
+  \item Let $k$ be the current stock of capital, $z$ be the current productivity shock, $k'$ be the stock of capital in the next period, and $z'$ be the productivity shock in the next period.
+
+  The Bellman Equation that represents this sequence problems is as follows:
+  \begin{equation}
+    V(k,z) = \max_{k'} \{ u(zk^{\alpha} + (1-\delta)k - k') + \beta E_{z'}[V(k',z')] \} \tag{for all $k$ and $z$}
+  \end{equation}
+  \item See Jupyter Notebook.
+\end{enumerate}
+
+\subsubsection*{Exercise 3}
+\begin{enumerate}
+  \item We use the Bellman Equation from above, but we take a conditional expectation of the continuation value:
+  \begin{equation}
+    V(k,z) = \max_{k'} \{ u(zk^{\alpha} + (1-\delta)k - k') + \beta E_{z'|z}[V(k',z')] \} \tag{for all $k$}
+  \end{equation}
+  Thus, we take an expectation over $z'$, the shock tomorrow, conditional on the shock today $z$.
+  \item See Jupyter Notebook.
+\end{enumerate}
+
+\subsubsection*{Exercise 4}
+\begin{enumerate}
+  \item In each period, the worker receives a wage offer and decides whether to accept and begin work at this wage (and work at this wage forever) or decline the offer and repeat the process in the next period. Thus, we define the control variable to be $z \in \{0,1\}$, where 1 represents accepting the offer and 0 represents declining the offer. The state variables are $w_t$ and $b$.
+
+  Let $w$ be the current wage offer and $w'$ be the wage offer in the next period, which is unknown in the current period. Then, the Bellman equation can be written as follows,
+  \begin{equation}
+    V(w) = \max\left( \frac{w}{1-\beta}, b + E_{w'}V(w') \right) \qquad \forall w, w'
+  \end{equation}
+  \item See Jupyter Notebook.
+\end{enumerate}
+
+\end{document}
