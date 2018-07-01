@@ -1,0 +1,917 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{listings}
+\lstset{frame=single,
+  language=Python,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{mathrsfs}
+
+\usepackage{harvard}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+
+\usepackage{mathtools}
+% commands
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\usepackage{mathrsfs}
+
+
+\begin{document}
+
+\begin{flushleft}
+  \textbf{\large{Problem Set \#2, Inner Product Spaces}} \\
+  OSM Lab: Math \\
+  Rebekah Dix
+\end{flushleft}
+
+\vspace{5mm}
+
+\subsubsection*{Exercise 3.1}
+\textbf{Part (i)}
+\begin{align*}
+	\frac{1}{4}(||x + y||^2 - ||x - y||^2) &= \frac{1}{4} \left( \inp{x+y}{x+y}  - \inp{x-y}{x-y} \right) \\
+	&= \frac{1}{4}( \inp{x}{x} + 2\inp{x}{y} + \inp{y}{y} - (\inp{x}{x} - 2\inp{x}{y} + \inp{y}{y})) \\
+	&= \frac{1}{4}(4\inp{x}{y}) \\
+	&= \inp{x}{y}
+\end{align*}
+where we used that fact that $\inp{x}{y} = \inp{y}{x}$ because we're in a real inner product space. 
+\vspace{5mm}
+
+\noindent \textbf{Part (ii)}
+\begin{align*}
+	\frac{1}{2}(||x + y||^2 - ||x - y||^2) &= \frac{1}{4} \left( \inp{x+y}{x+y}  + \inp{x-y}{x-y} \right) \\
+	&= \frac{1}{2}( \inp{x}{x} + 2\inp{x}{y} + \inp{y}{y} + \inp{x}{x} - 2\inp{x}{y} + \inp{y}{y}) \\
+	&= \frac{1}{2}( 2 \inp{x}{x} + 2 \inp{y}{y}) \\
+	&= \inp{x}{x} + \inp{y}{y}) \\
+	&= ||x||^2 + ||y||^2
+\end{align*}
+
+\subsubsection*{Exercise 3.2}
+Using the properties of inner products outlined in Definition 3.1.1 and Proposition 3.1.3, observe that,
+\begin{align*}
+	||x - iy||^2 &= \inp{x}{x} + i\inp{y}{x} - i\inp{x}{y} + \inp{y}{y} \\
+	||x + iy||^2 &= \inp{x}{x} -i\inp{y}{x} + i\inp{x}{y} + \inp{y}{y}
+\end{align*}
+Therefore,
+\begin{align*}
+	i||x - iy||^2 - i||x + iy||^2 &= i \inp{x}{x} -\inp{y}{x}  + \inp{x}{y} + i \inp{y}{y} -i  \inp{x}{x} + \inp{y}{x} -  \inp{x}{y} -  i \inp{y}{y} \\
+	&= 0
+\end{align*}
+Then, using the calculation from Exercise 3.1.1, we have that,
+\begin{align*}
+	\frac{1}{4}(||x + y||^2 - ||x - y||^2 +i||x - iy||^2 - i||x + iy||^2) &= \frac{1}{4} \left(4 \inp{x}{y} + 0 \right) \\
+	&= \inp{x}{y}
+\end{align*}
+
+\subsubsection*{Exercise 3.3}
+\textbf{Part (i)}
+First observe that,
+\begin{align*}
+	\inp{x}{x^5} &= \int_0^1 x^6 dx = \frac{1}{7} \\
+	\inp{x}{x} &= \int_0^1 x^2 dx = \frac{1}{3} \\
+	\inp{x^5}{x^5} &= \int_0^1 x^{10} dx = \frac{1}{11} \\	
+\end{align*}
+Therefore by Equation (3.8), 
+\begin{equation}
+	\cos \theta = \frac{\inp{x}{x^5}}{||x||||x^5||} = \frac{\sqrt{33}}{7}
+\end{equation}
+We find that $\theta = .608$ radians or $34.85$ degrees.
+
+\noindent\textbf{Part (ii)}
+First observe that,
+\begin{align*}
+	\inp{x^2}{x^4} &= \int_0^1 x^6 dx = \frac{1}{7} \\
+	\inp{x^2}{x^2} &= \int_0^1 x^4 dx = \frac{1}{5} \\
+	\inp{x^4}{x^4} &= \int_0^1 x^{8} dx = \frac{1}{9} \\	
+\end{align*}
+Therefore by Equation (3.8), 
+\begin{equation}
+	\cos \theta = \frac{\inp{x^2}{x^4}}{||x^2||||x^4||} = \frac{\sqrt{45}}{7}
+\end{equation}
+We find that $\theta = .29$ radians or $16.6$ degrees.
+
+\subsubsection*{Exercise 3.8}
+\noindent\textbf{Part (i)}
+\begin{claim}
+	$S = \{\cos(t), \sin(t), \cos(2t), \sin(2t\}$ is an orthonormal set.
+\end{claim}
+\begin{proof}
+Let $\delta_{ij}$ be the Kronecker delta. We show that $\inp{x_i}{x_j} = \delta_{ij}$ for all $x_i, x_j \in S$. To this end,
+\begin{align*}
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \cos(t) \sin(t) dt &= \left(- \frac{\cos^2(t)}{2\pi} \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \cos(t) \cos(2t) dt &= \left(\frac{\sin(3x) + 3 \sin(x)}{6\pi} \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \cos(t) \sin(2t) dt &= \left(- \frac{\cos(3x) + 3\cos(x)}{6\pi} \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \sin(t) \cos(2t) dt &= \left(\frac{3\cos(x) - \cos(3x) }{6\pi} \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \sin(t) \sin(2t) dt &= \left(\frac{3\sin(x) - \sin(3x) }{6\pi} \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \cos(2t) \sin(2t) dt &= \left(-\frac{\cos(4x)}{8\pi} \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+\end{align*}
+\begin{align*}
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \cos(t) \cos(t) dt &= \left(\frac{1}{\pi}\left( \frac{t}{2} + \frac{1}{4} \sin(2t) \right) \right) \bigg\rvert_{-\pi}^{\pi} = 1  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \sin(t) \sin(t) dt &= \left(\frac{1}{\pi}\left( \frac{t}{2} - \frac{1}{4} \sin(2t) \right) \right) \bigg\rvert_{-\pi}^{\pi} = 1  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \cos(2t) \cos(2t) dt &= \left(\frac{1}{\pi}\left( \frac{t}{2} + \frac{1}{8} \sin(2t) \right) \right) \bigg\rvert_{-\pi}^{\pi} = 1  \\
+	\frac{1}{\pi} \int_{-\pi}^{\pi} \sin(2t) \sin(2t) dt &= \left(\frac{1}{\pi}\left( \frac{t}{2} - \frac{1}{8} \sin(2t) \right) \right) \bigg\rvert_{-\pi}^{\pi} = 1  \\
+\end{align*}
+This calculations show that $\inp{x_i}{x_j} = \delta_{ij}$ for all $x_i, x_j \in S$; therefore, $S$ is an orthonormal set.
+\end{proof}
+
+\noindent\textbf{Part (ii)}
+\begin{align*}
+	\inp{t}{t} &= \frac{1}{\pi} \int_{\pi}^{-\pi} t^2 dt = \frac{1}{\pi}\left( \frac{t^3}{3}\right)\bigg\rvert_{-\pi}^{\pi} = \frac{2\pi^2}{3}
+\end{align*}
+Therefore, $||t|| = \pi \sqrt{\frac{2}{3}}$.
+
+\noindent\textbf{Part (iii)}
+In Part (i) we proved that $S$ is an orthonormal set. Let $X = \text{span}(S)$. Therefore, by Definition 3.2.6, the orthogonal projection of $\cos(3t)$ onto X is given by,
+\begin{equation}
+	\text{proj}_X(\cos(3t)) = \sum_{x_i \in S} \inp{x_i}{\cos(3t)} x_i
+\end{equation}
+We need to calculate the following inner products:
+\begin{align*}
+	\inp{\cos(t)}{\cos(3t)} = \frac{1}{\pi} \int_{-\pi}^{\pi} \cos(t) \cos(3t) dt &= \left(\frac{1}{\pi}\left( \frac{\sin(4x)}{8}  + \frac{\sin(2x)}{4}\right) \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\inp{\sin(t)}{\cos(3t)} = \frac{1}{\pi} \int_{-\pi}^{\pi} \sin(t) \cos(3t) dt &= \left(\frac{1}{\pi}\left( \frac{\cos(2x)}{4} - \frac{\cos(4x)}{8}\right) \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\inp{\cos(2t)}{\cos(3t)} = \frac{1}{\pi} \int_{-\pi}^{\pi} \cos(2t) \cos(3t) dt &= \left(\frac{1}{\pi}\left( \frac{\sin(5x)}{10}  + \frac{\sin(x)}{2}\right) \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\inp{\sin(2t)}{\cos(3t)} = \frac{1}{\pi} \int_{-\pi}^{\pi} \sin(2t) \cos(3t) dt &= \left(\frac{1}{\pi}\left( \frac{\cos(x)}{2}  - \frac{\cos(5x)}{10}\right) \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+\end{align*}
+Therefore, we find that $\text{proj}_X(\cos(3t)) = \mathbf{0}$.
+
+\noindent\textbf{Part (iv)}
+In Part (i) we proved that $S$ is an orthonormal set. Let $X = \text{span}(S)$. Therefore, by Definition 3.2.6, the orthogonal projection of $t$ onto X is given by,
+\begin{equation}
+	\text{proj}_X(t) = \sum_{x_i \in S} \inp{x_i}{t} x_i
+\end{equation}
+We need to calculate the following inner products:
+\begin{align*}
+	\inp{\cos(t)}{t} &=  \frac{1}{\pi} \int_{-\pi}^{\pi} \cos(t) t dt = \left(\frac{1}{\pi}\left(\cos(t) +t\sin(t) \right) \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\inp{\sin(t)}{t} &=  \frac{1}{\pi} \int_{-\pi}^{\pi} \sin(t) t dt = \left(\frac{1}{\pi}\left(\sin(t) - t\cos(t) \right) \right) \bigg\rvert_{-\pi}^{\pi} = 2  \\
+	\inp{\cos(2t)}{t} &=  \frac{1}{\pi} \int_{-\pi}^{\pi} \cos(2t) t dt = \left(\frac{1}{\pi}\left(\frac{\cos(2t)}{4}+ \frac{t\sin(2t)}{2}\right) \right) \bigg\rvert_{-\pi}^{\pi} = 0  \\
+	\inp{\sin(2t)}{t} &=  \frac{1}{\pi} \int_{-\pi}^{\pi} \sin(2t) t dt = \left(\frac{1}{\pi}\left(-\frac{t\cos(2t)}{2}+ \frac{\sin(2t)}{4}\right) \right) \bigg\rvert_{-\pi}^{\pi} = -1  \\
+\end{align*}
+Therefore,
+\begin{equation}
+	\text{proj}_X(t) = 2\sin(t) - \sin(2t)
+\end{equation}
+
+\subsubsection*{Exercise 3.9}
+The rotation matrix in $\mathbb{R}^2$ is given by,
+\begin{equation}
+R_{\theta} = 
+\begin{bmatrix}
+	\cos(\theta) & -\sin(\theta) \\
+	\sin(\theta) & \cos(\theta)
+\end{bmatrix}
+\end{equation}
+Fix $x = (x_1, x_2), y= (y_1, y_2) \in \mathbb{R}^2$. Then,
+\begin{equation}
+	L(x) = 
+	\begin{bmatrix}
+	x_1 & x_2
+	\end{bmatrix}
+	\begin{bmatrix}
+	\cos(\theta) & -\sin(\theta) \\
+	\sin(\theta) & \cos(\theta)
+	\end{bmatrix}
+	= \begin{bmatrix}
+	x_1 \cos(\theta) + x_2 \sin(\theta) & -x_1 \sin(\theta) + x_2\cos(\theta)
+	\end{bmatrix}
+\end{equation}
+Similarly,
+\begin{equation}
+	L(y) = 
+	\begin{bmatrix}
+	y_1 & y_2
+	\end{bmatrix}
+	\begin{bmatrix}
+	\cos(\theta) & -\sin(\theta) \\
+	\sin(\theta) & \cos(\theta)
+	\end{bmatrix}
+	= \begin{bmatrix}
+	y_1 \cos(\theta) + y_2 \sin(\theta) & -y_1 \sin(\theta) + y_2\cos(\theta)
+	\end{bmatrix}
+\end{equation}
+Therefore, 
+\begin{align*}
+	\inp{L(x)}{L(y)} &= x_1y_1\cos^2(\theta) + x_1y_2 \cos(\theta)\sin(\theta)  + x_2y_1\cos(\theta)\sin(\theta) + x_2y_2 \sin^2(\theta) \\
+	&\quad+ x_1y_1\sin^2(\theta) - x_1y_2\cos(\theta)\sin(\theta) - x_2y_1\cos(\theta)\sin(\theta) + x_2y_2 \cos^2(\theta) \\
+	&= x_1y_1 + x_2y_2 \\
+	&= \inp{x}{y}
+\end{align*}
+Then by Definition 3.2.11, a rotation in $\mathbb{R}^2$ is an orthonormal transformation.
+
+\subsubsection*{Exercise 3.10} \textbf{[[Incomplete]]}
+\begin{claim}
+	The matrix $Q \in M_n(\mathbb{F})$ is an orthonormal matrix if and only if $Q^HQ = I = QQ^H$. 
+\end{claim}
+\begin{proof}
+	
+	Suppose $Q \in M_n(\mathbb{F})$ is an orthonormal matrix and fix $x \in \mathbb{F}^n$  Then, 
+	\begin{equation}
+		\inp{x}{x} = \inp{Qx}{Qx} = x^HQ^HQx = \inp{x}{Q^HQx}
+	\end{equation}
+	This holds for all $x$, which implies $x = Q^HQx$. Thus, it must be that $Q^HQ = I$. Since $Q$ is square, this equation implies that $Q^{-1} = Q^H$. Therefore, it must also be the case that $QQ^H = I$. 
+
+	Conversely, suppose $Q^HQ = I$.  Fix $x, y \in \mathbb{F}^n$. Then,
+	\begin{equation}
+	\inp{Qx}{Qy} = x^HQ^HQy = x^Hy = \inp{x}{y}
+	\end{equation}
+	Therefore, $Q$ is an orthonormal matrix.
+\end{proof}
+
+\begin{claim}
+If $Q \in M_n(\mathbb{F})$ is an orthonormal matrix, then $||Qx|| = ||x||$ for all $x \in \mathbb{F}^n$. 
+\end{claim}
+\begin{proof}
+Let $Q \in M_n(\mathbb{F})$ be an orthonormal matrix and fix $x \in \mathbb{F}^n$. By Definition 3.2.14, $Q$ is the matrix representation of an orthonormal operator on $\mathbb{F}^n$. Therefore, by Definition 3.2.11, $Q$ satisfies,
+\begin{equation}
+	\inp{x}{x} = \inp{Qx}{Qx}
+\end{equation}
+We can simplify this equation as follows,
+\begin{align*}
+\inp{x}{x} &= \inp{Qx}{Qx} \\
+	\implies  &||x||^2 = ||Qx||^2 \\
+	\implies &||x|| = ||Qx||
+\end{align*}
+Our choice of $x$ was arbitrary, therefore $||Qx|| = ||x||$ for all $x \in \mathbb{F}^n$. 
+\end{proof}
+
+\begin{claim}
+	If $Q \in M_n(\mathbb{F})$ is an orthonormal matrix, then so is $Q^{-1}$.
+\end{claim}
+\begin{proof}
+	Let $Q \in M_n(\mathbb{F})$ be an orthonormal matrix. By part (i), we know that $QQ^H = Q^HQ = I$, so that $Q^{-1} = Q^H$. Now, observe that $ I = QQ^H = (Q^H)^H Q^H = (Q^{-1})^H Q^H = (Q^{-1})^H Q^{-1}$. Therefore, again by (i), we have that $Q^{-1} = Q^H$ is an orthonormal matrix.
+\end{proof}
+
+\begin{claim}
+	The columns of an orthonormal matrix $Q \in M_n(\mathbb{F})$ are orthonormal.
+\end{claim}
+\begin{proof}
+	Let $Q \in M_n(\mathbb{F})$ be an orthonormal matrix. We write $Q = [q_1 q_2 \ldots q_n]$ where $q_i$ is the $i$th column of $Q$. By part (i), we have that $Q^HQ = I$. Therefore, 
+	\begin{align*}
+	I &= [q_1 q_2 \ldots q_n]^H [q_1 q_2 \ldots q_n] \\
+	  &= 
+	  \begin{bmatrix}
+	  q_1^H \\
+	  q_2^H \\
+	  \vdots \\
+	  q_n^H
+	  \end{bmatrix}
+	   [q_1 q_2 \ldots q_n] \\
+	   &= 
+	   \begin{bmatrix}
+	   q^H_1 q_1 & q^H_1 q_2 & \hdots & q^H_1 q_n \\
+	   q^H_2 q_1 & q^H_2 q_2 & \hdots & q^H_2 q_n \\
+	   \vdots & \vdots & \ddots & \vdots \\
+	   q^H_n q_1 & q^H_n q_2 & \hdots & q^H_n q_n
+	   \end{bmatrix} =
+	   \begin{bmatrix}
+	   1 & 0 & \hdots & 0 \\
+	   0 & 1 & \hdots & 0 \\
+	   \vdots & \vdots & \ddots & \vdots \\
+	   0 & 0 & \hdots & 1
+	   \end{bmatrix}
+	\end{align*}
+	Observe that in the final line, the corresponding elements of the two matrices are equal. Therefore, we have that $q^H_i q_i = 1$ and $q^H_i q_j =$ for all $i \neq j$. Therefore, the columns of $Q$ are by definition (Definition 3.2.1) orthonormal.
+\end{proof}
+
+\begin{claim}
+	If $Q \in M_n(\mathbb{F})$ is an orthonormal matrix, then $|\det(Q)| = 1$. The converse is false.
+\end{claim}
+\begin{proof}
+	Let $Q \in M_n(\mathbb{F})$ be an orthonormal matrix. By part $(i)$, we know that $Q^HQ = I$.  Also note that a basic property of determinants is that $det(Q^H) = det(Q)$ and $detQ^HQ) = det(Q^H)det(Q)$. Therefore, 
+	\begin{equation}
+	1 = det(I) = det(Q^HQ) = det(Q^H)det(Q) = (det(Q))^1.
+	\end{equation}
+	Therefore, $|\det(Q)| = 1$. Conversely, consider the matrix, 
+	\begin{equation}
+	A = \begin{bmatrix}
+	4 & 1 \\
+	3 & 1
+	\end{bmatrix}
+	\end{equation}
+	The $det(A) = 1$, but clearly $A$ is not orthonormal. Therefore, the converse is not true.
+\end{proof}
+
+\begin{claim}
+If $Q_1, Q_2 \in M_n (\mathbb{F})$ are orthonormal matrices, then the product $Q_1 Q_2$ is also an orthonormal matrix.
+\end{claim}
+\begin{proof}
+	Let $Q_1, Q_2 \in M_n (\mathbb{F})$ be orthonormal matrices. We will show that $(Q_1Q_2)^H (Q_1 Q_2) = I$. To that end,
+	\begin{align*}
+	(Q_1 Q_2)^H (Q_1 Q_2) &= Q_2^H Q_1^H  Q_1 Q_2 \\
+	&= Q_2^H (Q_1^H  Q_1) Q_2 \\
+	&= Q_2^H I Q_2 \tag{$Q_1^H  Q_1 = I$ because $Q_1$ is orthonormal} \\
+	&= Q_2^H Q_2 \\
+	&= I \tag{$Q_2^H  Q_2 = I$ because $Q_2$ is orthonormal}
+	\end{align*}
+	Therefore, by part (i), because $(Q_1Q_2)^H (Q_1 Q_2) = I$, we have that $Q_1 Q_2$ is an orthonormal matrix.
+\end{proof}
+
+\subsubsection*{Exercise 3.11}
+Let $\{x_i\}_{i=1}^{n}$ be a collection of linearly dependent vectors. Without loss of generality, suppose that vector $k$ is the first vector that makes the subset of vectors linearly dependent i.e. $k$ is the index of first vector that can be written in terms of vectors $1$ to $k-1$.  Observe that the projection of $x_k$ onto the span of $\{x_1, x_2, \ldots, x_{k-1}\}$ is simply $x_k$. Therefore, following the notation from the Gram-Schmidt Orthonormalization Process in the textbook, $p_{k-1} = x_k$. Therefore, $x_k$ does not extend the dimension of $\{x_1, x_2, \ldots, x_{k-1}\}$ and the denominator of  $q_k$ is not well-defined. However, to make the process more useful, when this occurs, we could simply set $q_k = 0$. Therefore, when the Gram-Schmidt Orthonormalization Process is conducted in this manner on a set of linearly dependent vectors, it will return a set of vectors, some of which form an orthonormal set, and some of which are 0. To recover an orthonormal set we can simply discard the vectors that were set to 0.
+
+\subsubsection*{Exercise 3.16}
+\begin{claim}
+	The $QR$ decomposition is not unique. 
+\end{claim}
+\begin{proof}
+	Consider a diagonal matrix $D$ (of dimension $n\times n$) where all entries on the diagonal are $1$, except the entry in the last row and column (i.e. $d_{nn}$). Observe that $D^{-1} = D$. Then, let $A =  QR$ be the $QR$ decomposition of a matrix $A$. Then, $A = QR = QIR = QDD^{-1}R = \tilde{Q} \tilde{R}$. Now, $\tilde{Q} = QD$ is still an orthonormal matrix. This follows by part $(vi)$ of Exercise 3.10. Clearly $D$ is an orthonormal matrix, so that $QD$ is also an orthonormal matrix. Furthermore, $\tilde{R} = D^{-1}R$ is still an upper diagonal matrix. Therefore, $A = \tilde{Q} \tilde{R}$ is another $QR$ decomposition for $A$ so that the $QR$ decomposition is not unique.
+\end{proof}
+
+\begin{claim}
+	If $A$ is invertible, then there is a unique $QR$ decomposition of $A$ such that $R$ has only positive diagonal elements. 
+\end{claim}
+\begin{proof}
+	Suppose $A$ has two $QR$ decompositions: $A = QR = Q'R'$, where $Q, Q'$ are orthonormal matrices and $R, R'$ have positive diagonal elements. If $A$ is invertible, then $Q,Q', R, R'$ must also be invertible. Therefore, $QR = Q'R'$ implies that $(Q')^{-1}Q = R' R^{-1}$. By Exercise 3.10, we know that $(Q')^{-1}$ is an orthonormal matrix, so that the product $(Q')^{-1}Q$ is also an orthonormal matrix. Similarly, $R' R^{-1}$ is an upper triangular matrix. $(Q')^{-1}Q = R' R^{-1}$ must have the same determinant, which implies that the diagonal elements of 
+\end{proof}
+
+
+\subsubsection*{Exercise 3.17}
+\begin{claim}
+	Let $A \in M_{m\times n}$ have rank $n \leq m$, and let $A = \hat{Q}\hat{R}$ be a reduced $QR$ decomposition. Then, solving the system $A^HAx = A^Hb$ is equivalent to solving the system $\hat{R}x = \hat{Q}^Hb$.
+\end{claim}
+\begin{proof}
+	Let $x \in \mathbb{F}^n$ solve $A^HAx = A^Hb$. We can substitute in the reduced $QR$ decomposition in to get that $A^HAx = (\hat{Q}\hat{R})^H (\hat{Q}\hat{R}) x = \hat{R}^H\hat{Q}^H\hat{Q}\hat{R}x$. $\hat{Q}$ is an orthonormal $m \times n$ matrix, so $\hat{Q}^H\hat{Q} = I_{n\times n}$. Therefore, $A^HAx = \hat{R}^H \hat{R}x$. Additionally, $A^Hb = \hat{R}^H\hat{Q}^Hx$. Thus, $\hat{R}^H \hat{R} x =  \hat{R}^H\hat{Q}^Hx$. Observe that in the reduced $QR$ decomposition, $\hat{R}$ is invertible (and hence $\hat{R}^H$ is invertible).  This follows from the fact that $A$ has full rank (linearly independent columns). Therefore, we can multiply both sides by $\left(\hat{R}^H\right)^{-1}$ on the left to find that $\hat{R} x =  \hat{Q}^Hx$. Therefore, by reversing this chain of equalities, solving the system $A^HAx = A^Hb$ is equivalent to solving the system $\hat{R}x = \hat{Q}^Hb$.
+\end{proof}
+
+\subsubsection*{Exercise 3.23}
+\begin{claim}
+$| ||x|| - ||y|| | \leq ||x - y||$ for all $x, y \in V$.
+\end{claim}
+\begin{proof}
+Let $x, y \in V$. Then,
+\begin{equation}
+ ||x|| = ||x - y + y|| \leq ||x - y|| + ||y||
+\end{equation}
+where the inequality follows from the triangle inequality. Therefore,
+\begin{equation}\label{ineq1}
+||x||  - ||y|| \leq ||x - y||
+\end{equation}
+Similarly,
+\begin{equation}
+||y|| = ||y - x + x|| \leq ||y - x|| + ||x||
+\end{equation}
+Therefore, 
+\begin{equation}\label{ineq2}
+||y|| - ||x|| \leq ||y - x|| = || x - y ||
+\end{equation}
+Combining (\ref{ineq1}) and (\ref{ineq2}), we find that $| ||x|| - ||y|| | \leq ||x - y||$.
+\end{proof}
+
+\subsubsection*{Exercise 3.24}
+\begin{claim}\label{241}
+	$||f||_{L^1} = \int_a^b |f(t)| dt$ is a norm on $C([a,b],\mathbb{F})$.
+\end{claim}
+\begin{proof}
+	Let $f \in C([a,b],\mathbb{F})$.
+	
+	(Positivity) It is clear that that $\int_a^b |f(t)| dt \geq 0$ for all $t \in [a,b]$, since the absolute value of $f(t)$ is weakly positive. Next, suppose $\int_a^b |f(t)| dt = 0$. This could occur in the degenerate case where $a=b$, but we disregard this. Because $|f(t)| \geq 0$ for all $t \in [a,b]$, for the integral to be 0, it must be that $f(t) = 0$ for all $t \in [a,b]$. Conversely, suppose $f(t) = 0$ for all $t \in [a,b]$. Then, clearly $\int_a^b |f(t)| dt = 0$. Thus, this norm satisfies the positivity condition. 
+	
+	(Scale preservation) Fix $a \in \mathbb{F}$. Then,
+	\begin{align*}
+	||af||_{L^1} &= \int_a^b |af(t)| dt \\
+					&= \int_a^b |a| |f(t)| dt \\
+					&= |a| \int_a^b |f(t)| dt \\
+					&= |a| |f||_{L^1} 
+	\end{align*}
+	
+	(Triangle Inequality) Let $g \in C([a,b],\mathbb{F})$. Then,
+	\begin{align*}
+	||f + g||_{L^1} &= \int_a^b |f(t) + g(t)| dt \\
+						&\leq \int_a^b \left( |f(t)| + |g(t)|\right)dt \\
+						&= \int_a^b |f(t)| dt + \int_a^b |g(t)| dt \\
+						&= ||f||_{L^1} + ||g||_{L^1}
+	\end{align*}
+	These three properties verify that $||f||_{L^1}$ is indeed a norm.
+\end{proof}
+
+\begin{claim}
+	$||f||_{L^2} = \left(\int_a^b |f(t)|^2 \right)^\frac{1}{2} dt$ is a norm on $C([a,b],\mathbb{F})$.
+\end{claim}
+\begin{proof}
+	Let $f \in C([a,b],\mathbb{F})$.
+	
+	(Positivity) This argument is analogous to that in Claim \ref{241}. $|f(t)|^2$ follows the sign of $|f(t)|$, so the argument presented there holds.
+	
+	(Scale preservation) Fix $a \in \mathbb{F}$. Then,
+	\begin{align*}
+	||af||_{L^2} &=  \left(\int_a^b |a f(t)|^2 \right)^\frac{1}{2} dt \\
+					&=  \left(\int_a^b |a|^2 |f(t)|^2 \right)^\frac{1}{2} dt \\
+					&= \left(|a|^2 \int_a^b |f(t)|^2 \right)^\frac{1}{2} dt \\
+					&=  |a| \left(\int_a^b |f(t)|^2 \right)^\frac{1}{2} dt \\
+					&= |a| |f||_{L^2} 
+	\end{align*}
+	
+	(Triangle Inequality) Let $g \in C([a,b],\mathbb{F})$. Then,
+	\begin{align*}
+	||f + g||_{L^2}^2 &= \int_a^b |f(t) + g(t)|^2 dt \\
+						 &=  \int_a^b(|f(t)|^2 + 2|f(t)g(t)| + |g(t)|^2) dt \\
+						 &= \int_a^b |f(t)|^2 dt +  \int_a^b |g(t)|^2 dt  +  2 \int_a^b(|f(t)g(t)|^2 dt \\
+						 &\leq \int_a^b |f(t)|^2 dt +  \int_a^b |g(t)|^2 dt + 2  \left(\int_a^b |f(t)|^2 \right)^\frac{1}{2}  \left(\int_a^b | g(t)|^2 \right)^\frac{1}{2} \tag{by Cauchy Schwarz} \\
+						 &= \left( \left(\int_a^b |f(t)|^2 dt\right)^{\frac{1}{2}} + \left(\int_a^b |g(t)|^2 dt\right)^{\frac{1}{2}} \right)^2\\
+	\end{align*}
+	Therefore, $||f + g||_{L^2} \leq ||f||_{L^2} + ||g||_{L^2}$. These three properties verify that $||f||_{L^2}$ is indeed a norm.
+\end{proof}
+
+\begin{claim}
+	$||f||_{L^{\infty}} = \sup_{x \in [a,b]} |f(x)|$  is a norm on $C([a,b],\mathbb{F})$.
+\end{claim}
+\begin{proof}
+	Let $f \in C([a,b],\mathbb{F})$.
+	
+	(Positivity) It is clear that that $\sup_{x \in [a,b]} |f(x)| \geq 0$ for all $t \in [a,b]$, since the absolute value of $f(t)$ is weakly positive. Next, suppose $\sup_{x \in [a,b]} |f(x)| dt = 0$. Recall that the supremum takes the largest value of $|f(t)|$ over this interval. Therefore, if $\sup_{x \in [a,b]} |f(x)| dt = 0$, then it must be that $f(t) = 0$ for all $x \in [a,b]$. Conversely, suppose $f(t) = 0$ for all $x \in [a,b]$. Then clearly $\sup_{x \in [a,b]} |f(x)| dt = 0$.
+	
+	(Scale Preservation)  Fix $a \in \mathbb{F}$. Then,
+	\begin{align*}
+	||af||_{L^{\infty}} &= \sup_{x \in [a,b]} |a f(x)| \\
+					&= |a| \sup_{x \in [a,b]} |f(x)| \\
+					&= |a| |f||_{L^{\infty}}
+	\end{align*}
+	
+	(Triangle Inequality) Let $g \in C([a,b],\mathbb{F})$. Then,
+	\begin{align*}
+		||f + g||_{L^{\infty}} &= \sup_{x \in [a,b]} |f(x) + g(x)| \\
+		&\leq  \sup_{x \in [a,b]} (|f(x)| +|g(x)|) \\
+		&= \sup_{x \in [a,b]} |f(x)| +  \sup_{x \in [a,b]} |g(x)|   \\
+		&=||f||_{L^{\infty}} + ||g||_{L^{\infty}}
+	\end{align*}
+	These three properties verify that $||f||_{L^{\infty}}$ is indeed a norm.
+\end{proof}
+
+\subsubsection*{Exercise 3.26}
+\begin{claim}
+	Topological equivalence is an equivalence relation.
+\end{claim}
+\begin{proof}
+	(Reflexivity) Let $||\cdot||_a$ be a norm on the vector space $X$. Then, set $m=M=1$ in the definition of topological equivalence. Clearly,
+	\begin{equation}
+	m||x||_a \leq ||x||_a \leq M ||x||_a
+	\end{equation}
+	for all $x \in X$ when $m=M=1$. Therefore, $||\cdot||_a$ is equivalent to itself, so topological equivalence is reflexive.
+	
+	(Symmetry) Let $||\cdot||_b$ be a norm on the vector space $X$ and suppose $||\cdot||_a$ is topologically equivalent to $||\cdot||_b$. Therefore, there exist constants $0< m \leq M$ such that 
+	\begin{equation}
+	m||x||_a \leq ||x||_b \leq M ||x||_a
+	\end{equation}
+	for all $x \in X$. However, it also follows that,
+	\begin{equation}
+	\frac{1}{M}||x||_b \leq ||x||_a \leq \frac{1}{m} ||x||_b
+	\end{equation}
+	for all $x \in X$. Therefore, $||\cdot||_b$ is topologically equivalent to $||\cdot||_a$, so that the relation is symmetric.
+	
+	(Transitivity) Let $||\cdot||_c$ be a norm on the vector space $X$. Suppose $||\cdot||_a$ is topologically equivalent to $||\cdot||_b$ and $||\cdot||_b$ is topologically equivalent to $||\cdot||_c$. Therefore, there exist constants $0< m_1 \leq M_1$ such that $m_1||x||_a \leq ||x||_b \leq M_1 ||x||_a$ for all $x \in X$. Similarly, there exist constants $0< m_2 \leq M_2$ such that $m_2||x||_b \leq ||x||_c \leq M_2 ||x||_b$ for all $x \in X$. However, it follows from these inequalities  and the fact that the constants are positive that,
+	\begin{equation}
+	m_1 m_2 ||x||_a \leq ||x||_c \leq M_1 M_2 ||x||_a
+	\end{equation}
+	for all $x \in X$. Therefore, $||\cdot||_a$ is topologically equivalent to $||\cdot||_c$, so that topological equivalence is transitive. With these three properties, it follows that topological equivalence is an equivalence relation.
+\end{proof}
+\begin{claim}
+	If $x\in \mathbb{F}^n$, then, $||x||_2 \leq ||x||_1 \leq \sqrt{n} ||x||_2$.
+\end{claim}
+\begin{proof}
+	Fix $x\in \mathbb{F}^n$. First observe that $(\norm{x}_2)^2 = \sum_{i=1}^n |x_i|^2 \leq \left(\sum_{i=1}^n |x_i| \right)^2 = \left(\norm{x}_1\right)^2$. Therefore, $||x||_2 \leq ||x||_1$. Secondly, observe that $\norm{x}_1 = \sum_{i=1}^{n} |x_i| = \sum_{i=1}^{n} 1 \cdot |x_i| = \inp{1}{|x|}$. Therefore, by the Cauchy-Schwarz inequality and the fact that $\inp{1}{|x|}$ is positive, we have that, $\norm{x}_1 = \inp{1}{|x|} \leq (\sum_{i=1}^n 1^2)^{\frac{1}{2}} (\sum_{i=1}^n |x_i|^2)^{\frac{1}{2}} = \sqrt{n} \norm{x}_2$. Therefore, chaining these two inequalities together, we have that $||x||_2 \leq ||x||_1 \leq \sqrt{n} ||x||_2$.
+\end{proof}
+
+\begin{claim}
+	If $x\in \mathbb{F}^n$, then, $||x||_{\infty} \leq ||x||_2 \leq \sqrt{n} ||x||_{\infty} $.
+\end{claim}
+\begin{proof}
+	Fix $x\in \mathbb{F}^n$. Suppose, without loss of generality, that $|x_k| = \norm{x}_{\infty}$, where $1 \leq k \leq n$. Clearly, we have that $\norm{x}_{\infty} = |x_k| \leq ( \sum_{i=1}^n |x_i|^2)^{\frac{1}{2}} = \norm{x}_2$, because only including index $k$ in the sum of the 2-norm leads to the inequality $|x_k| \leq |x_k|$; therefore, including other positive terms will not reverse the inequality. Thus, $\norm{x}_{\infty} \leq \norm{x}_2$. Secondly, observe that $(\norm{x}_2)^2 = \sum_{i=1}^n |x_i|^2 \leq n |x_k|^2$. This implies that $\norm{x}_2 \leq \sqrt{n} |x_k| = \sqrt{n} \norm{x}_{\infty}$. Chaining these inequalities together shows that $||x||_{\infty} \leq ||x||_2 \leq \sqrt{n} ||x||_{\infty} $.
+\end{proof}
+Therefore, because topological equivalence is an equivalence relation (and hence symmetric and transitive), the above two claims imply that the $p$-norms for $p=1,2,\infty$ on $\mathbb{F}^n$ are topologically equivalent.
+
+\subsubsection*{Exercise 3.28}
+Let $A$ be an $n\times n$ matrix. 
+\begin{claim}
+	$\frac{1}{\sqrt{n}} \norm{A}_2 \leq \norm{A}_1 \leq \sqrt{n}\norm{A}_2$
+\end{claim}
+\begin{proof}
+	By the topological equivalence of the the 1-norm and 2-norm in $\mathbb{F}^n$ (Exercise 3.26), we have the following inequalities,
+	\begin{equation}\label{top1}
+	\frac{1}{\sqrt{n}\norm{x}_2} \leq \frac{1}{\norm{x}_1} \leq \frac{1}{\norm{x}_2}
+	\end{equation}
+	and
+	\begin{equation}\label{top2}
+	\norm{Ax}_2 \leq \norm{Ax}_1 \leq \sqrt{n} \norm{Ax}_2
+	\end{equation}
+	We use the inequalities to find that,
+	\begin{equation}\label{mat1norm}
+	\norm{A}_1 \geq \frac{\norm{Ax}_1}{\norm{x}_1}
+					 \geq \frac{\norm{Ax}_2}{\sqrt{n}\norm{x}_2}
+	\end{equation}
+	where the first inequality follows from the definition of the 1-norm and the second inequality follows from \eqref{top1} and \eqref{top2}. Since \eqref{mat1norm} holds for all $x$, it follows that $\norm{A}_1 \geq \frac{1}{\sqrt{n}} \norm{A}_2$. Similarly, observe that,
+	\begin{equation}
+	\sqrt{n}\norm{A}_2 \geq \frac{\sqrt{n}\norm{Ax}_2}{\norm{x}_2} \geq \frac{\norm{Ax}_1}{\norm{x}_1}
+	\end{equation}
+	where again the first inequality follows from the definition of the 2-norm and the second inequality follows from \eqref{top1} and \eqref{top2}. Since \eqref{mat1norm} holds for all $x$, it follows that $\sqrt{n}\norm{A}_2 \geq \norm{A}_1$. Putting these two results together shows that  $\frac{1}{\sqrt{n}} \norm{A}_2 \leq \norm{A}_1 \leq \sqrt{n}\norm{A}_2$. 
+\end{proof}
+
+\begin{claim}
+	$\frac{1}{\sqrt{n}} \norm{A}_{\infty} \leq \norm{A}_1 \leq \sqrt{n}\norm{A}_{\infty} $
+\end{claim}
+
+\begin{proof}
+	This proof is analogous to that of the above claim.  By the topological equivalence of the the 2-norm and $\infty$-norm in $\mathbb{F}^n$ (Exercise 3.26), we have the following inequalities,
+	\begin{equation}\label{top3}
+	\frac{1}{\sqrt{n}\norm{x}_{\infty}} \leq \frac{1}{\norm{x}_2} \leq \frac{1}{\norm{x}_{\infty}}
+	\end{equation}
+	and
+	\begin{equation}\label{top4}
+	\norm{Ax}_{\infty} \leq \norm{Ax}_2 \leq \sqrt{n} \norm{Ax}_{\infty}
+	\end{equation}
+	We use the inequalities to find that,
+	\begin{equation}\label{mat2norm}
+	\norm{A}_2 \geq \frac{\norm{Ax}_2}{\norm{x}_2}
+					 \geq \frac{\norm{Ax}_{\infty}}{\sqrt{n}\norm{x}_{\infty}}
+	\end{equation}
+	where the first inequality follows from the definition of the 2-norm and the second inequality follows from \eqref{top3} and \eqref{top4}. Since \eqref{mat2norm} holds for all $x$, it follows that $\norm{A}_2 \geq \frac{1}{\sqrt{n}} \norm{A}_{\infty}$. Similarly, observe that,
+	\begin{equation}
+	\sqrt{n}\norm{A}_{\infty} \geq \frac{\sqrt{n}\norm{Ax}_{\infty}}{\norm{x}_{\infty}} \geq \frac{\norm{Ax}_2}{\norm{x}_2}
+	\end{equation}
+	where again the first inequality follows from the definition of the $\infty$-norm and the second inequality follows from \eqref{top3} and \eqref{top4}. Since \eqref{mat2norm} holds for all $x$, it follows that $\sqrt{n}\norm{A}_{\infty} \geq \norm{A}_2$. Putting these two results together shows that  $\frac{1}{\sqrt{n}} \norm{A}_{\infty} \leq \norm{A}_2 \leq \sqrt{n}\norm{A}_{\infty}$. 
+\end{proof}
+
+\subsubsection*{Exercise 3.29}
+\begin{claim}
+	Any orthonormal matrix $Q \in M_n(\mathbb{F})$ has $\norm{Q} = 1$, where $\norm{\cdot}$ is the induced norm from $\mathbb{F}^n$ having the $2$-norm.
+\end{claim}
+\begin{proof}
+	Let $Q \in M_n(\mathbb{F})$ be an orthonormal matrix. Then, 
+	\begin{align*}
+		\norm{Q}  &= \sup_{x\neq 0} \frac{\norm{Qx}_2}{\norm{x}_2} \\
+		&=  \sup_{x\neq 0} \frac{\norm{x}_2}{\norm{x}_2} \tag{orthonormal transformations preserve lengths} \\
+		&= 1
+	\end{align*}
+\end{proof}
+
+\begin{claim}
+	For any $x \in \mathbb{F}^n$, let $R_x : M_n (\mathbb{F}) \to \mathbb{F}^n$ be the linear transformation $A \mapsto Ax$. Then the induced norm of the transformation $R_x$ is equal to $\norm{x}_2$.
+\end{claim}
+\begin{proof}
+	
+	Fix $x \in \mathbb{F}^n$. Then, $\norm{R_x} = \sup_{A : \norm{A} \neq 0}\left( \frac{\norm{Ax}_2}{\norm{A}} \right)$. However, $\norm{A} = \sup_{y \neq 0} \left( \frac{\norm{Ay}_2}{\norm{y}_2}\right) \geq  \frac{\norm{Ax}_2}{\norm{x}_2}$. Therefore, $\norm{R_x} \leq \sup_{A : \norm{A} \neq 0}\left( \frac{\norm{Ax}_2 \norm{x}_2}{\norm{Ax}_2} \right) = \norm{x}_2$. In sum, $\norm{R_x}  \leq \norm{x}_2$.
+	
+	Next, observe that if $A$ is orthonormal, then equality is possible. Indeed, if $A$ is orthonormal, then, $\norm{R_x}  = \norm{x}_2$, because $\norm{Ax}_2 = \norm{x}_2$ and $\norm{A} = 1$. 
+\end{proof}
+
+\subsubsection*{Exercise 3.30}
+\begin{claim}
+	Let $S \in M_n(\mathbb{F})$ be an invertible matrix. Fix a matrix norm $\norm{\cdot}$ on $M_n$. Then $\norm{A}_S = \norm{SAS^{-1}}$ is a matrix norm on $M_n(\mathbb{F})$.
+\end{claim}
+\begin{proof}
+	We must show that $\norm{\cdot}_S$ is indeed a norm and satisfies the submultiplicative property to prove that $\norm{\cdot}_S$ is a matrix norm.
+	
+	(Positivity)  Fix $A \in M_n(\mathbb{F})$. Observe that $\norm{A}_S = \norm{SAS^{-1}} \geq 0$ because $\norm{\cdot}$ is a matrix norm. Similarly, $\norm{A}_S = \norm{SAS^{-1}} = 0$ if and only if $SAS^{-1} = 0$ because $\norm{\cdot}$ is a matrix norm. $S$ is invertible implies that this can only occur when $A = 0$. 
+	
+	(Scale preservation) Let $\alpha \in \mathbb{R}$. Then, $\norm{\alpha A}_S = \norm{\alpha SAS^{-1}} = \alpha\norm{SAS^{-1}} = \alpha \norm{A}_S$, because $\norm{\cdot}$ is a matrix norm.
+	
+	(Triangle inequality) Let $B \in M_n(\mathbb{F})$. Then, $\norm{A + B}_S = \norm{S(A+B)S^{-1}} = \norm{SAS^{-1} + SBS^{-1}} \leq \norm{SAS^{-1}} + \norm{SBS^{-1}} = \norm{A}_S + \norm{B}_S$, where the inequality follows because $\norm{\cdot}$ is a matrix norm.
+	
+	(Submultiplicative) We must show that $\norm{AB}_S \leq \norm{A}_S\norm{B}_S$. Then,
+	\begin{align*}
+	\norm{AB}_S 
+	&= \norm{AS^{-1}SB}_S = \norm{S(AS^{-1}SB)S^{-1}} = \norm{(SAS^{-1})(SBS^{-1})} \\
+	&\leq \norm{SAS^{-1}}\norm{SBS^{-1}} = \norm{A}_S\norm{B}_S
+	\end{align*}
+	Therefore, $\norm{\cdot}_S$ satisfies the properties of a norm and is submultiplicative. Thus, it is a matrix norm.
+\end{proof}
+
+\subsubsection*{Exercise 3.37}
+Observe that we may represent the space $V = \mathbb{R}[x;2]$ by a vector of coefficients in $\mathbb{R}^3$ on the basis $[1; x; x^2]$. Indeed, consider $p(x) \in \mathbb{R}[x;2]$. Then, $p(x) = [a_2; a_1; a_0] [x^2; x; 1]^T$. Then, we are looking for the unique $q$ such that $L(p) = \inp{q}{p}$. Observe that $L(p) = 2a_2 + a_1$. Thus, we want the $q$ such that,
+\begin{equation}
+	2a_2 + a_1 = L(p) = \inp{q}{p} = q^T (a_2; a_1; a_0)^T
+\end{equation}
+Clearly, $q^T = [2; 1; 0]$ satisfies this. By the discussion in the book before the Finite-Dimensional Riesz Representation Theorem, this $q$ is unique.
+
+\subsubsection*{Exercise 3.38}
+Suppose $p(x) = [a_2; a_1; a_0] [x^2; x; 1]^T$. Then $p'(x) = [0; 2a_2; a_1] [x^2; x; 1]^T$. Let
+\begin{equation}
+	D = 
+	\begin{bmatrix}
+	0 & 0 & 0 \\
+	2 & 0 & 0 \\
+	0 & 1 & 0
+	\end{bmatrix}
+\end{equation}
+Then,
+\begin{equation}
+	D[p](x) = 
+	\begin{bmatrix}
+	0 & 0 & 0 \\
+	2 & 0 & 0 \\
+	0 & 1 & 0
+	\end{bmatrix}
+	\begin{bmatrix}
+	a_2 \\ a_1 \\ a_0
+	\end{bmatrix} 
+	=
+	\begin{bmatrix}
+	0 \\ 2a_2 \\ a_1
+	\end{bmatrix}
+\end{equation}
+ is the derivative operator $D : V \to V$. The adjoint of $D$ is given by the Hermitian conjugate,
+ \begin{equation}
+ D^* = D^H = 
+ \begin{bmatrix}
+ 0 & 2 & 0 \\
+ 0 & 0 & 1 \\
+ 0 & 0 & 0
+ \end{bmatrix}
+ \end{equation}
+
+\subsubsection*{Exercise 3.39}
+\begin{claim}
+	Let $V$ and $W$ be finite-dimensional inner product spaces. The adjoint has the following properties:
+	\begin{enumerate}
+		\item If $S,T \in \mathscr{L}(V;W)$, then $(S + T)^*) = S^* + T^*$ and $(\alpha T)^* = \bar{\alpha}T^*$, $\alpha \in \mathbb{F}$.
+		\item If $S \in \mathscr{L}(V;W)$, then $(S^*)^* = S$.
+		\item If $S,T \in \mathscr{L}(V)$, then $(ST)^* = T^*S^*$.
+		\item If $T \in \mathscr{L}(V)$ and $T$ is invertible, then $(T^*)^{-1} = (T^{-1})^*$.
+	\end{enumerate}
+\end{claim}
+\begin{proof}
+	Let $v \in V$ and $w \in W$, and fix $\alpha \in \mathbb{F}$.
+	\begin{enumerate}
+		\item $\inp{w}{(S+T)v} = \inp{w}{Sv} +  \inp{w}{Tv} = \inp{S^*v}{w} + \inp{T^*v}{w} = \inp{(S^* + T^*)v}{w}$. Therefore, by Definition 3.7.6, $(S+T)^* = S^* + T^*$. Similarly, $\inp{v}{ \alpha S w} = \alpha\inp{v}{Sw} = \alpha\inp{S^*w}{v} = \inp{\bar{\alpha}S^*w}{v}$. Thus, $\bar{\alpha}S^* = (\alpha S)^*$.
+		\item By the definition of the adjoint, we have that,
+		\begin{equation}
+		\inp{(S^*)^*w}{v} = \inp{w}{S^*v} = \inp{Sw}{v}
+		\end{equation}
+		This holds for all $v \in V$ and $w \in W$, which implies $(S^*)^* = S$.
+		\item By the definition of the adjoint, we have that,
+		\begin{equation}
+		\inp{(ST)^*w}{v} = \inp{w}{STv} = \inp{S^*w}{Tv} = \inp{T^*S^*w}{v}
+		\end{equation}
+		This holds for all $v \in V$ and $w \in W$, which implies $(ST)^* = T^*S^*$.
+		\item A key observation is that $I = I^*$. Then, we have that,
+		\begin{align*}
+		 T^* (T^*)^{-1} &= I \\
+							 &= I^* \\
+							 &= (T^{-1} T)^* \\
+							 &= T^*(T^{-1})^* \tag{by the previous claim} 
+		\end{align*}
+		Thus, $(T^*)^{-1} = (T^{-1})^*$.
+	\end{enumerate}
+\end{proof}
+
+\subsubsection*{Exercise 3.40}
+Let $M_n (\mathbb{F})$ be endowed with the Frobenius inner product.
+\begin{claim}\label{clm340}
+	Let $A \in M_n (\mathbb{F})$. Then, $A^* = A^H$. 
+\end{claim}
+\begin{proof}
+	Let $B, C \in M_n (\mathbb{F})$. Then, 
+	\begin{equation}
+	\inp{B}{AC} = tr(B^HAC) = tr((A^HB)^H C) = \inp{A^HB}{C}
+	\end{equation}
+	Therefore, by definition, $A^* = A^H$.
+\end{proof}
+
+\begin{claim}
+	For any $A_1, A_2, A_3 \in M_n(\mathbb{F})$, we have $\inp{A_2}{A_3A_1} = \inp{A_2 A_1^*}{A_3}$.
+\end{claim}
+\begin{proof}
+	Let $A_1, A_2, A_3 \in M_n(\mathbb{F})$. Then,
+	\begin{equation}
+		\inp{A_2}{A_3A_1} = tr(A_2^H A_3A_1) = tr(A_1 A_2^H A_3)= tr( (A_2 A_1^H)^H A_3) = \inp{A_2 A_1^H}{A_3}
+	\end{equation}
+	Then by Claim \ref{clm340}, we know that $A_1^H = A_1^*$. Therefore, $\inp{A_2}{A_3A_1} = \inp{A_2 A_1^*}{A_3}$.
+\end{proof}
+
+\subsubsection*{Exercise 3.44}
+\begin{claim}
+	Fredholm Alternative: Given $A \in M_{m\times n} (\mathbb{F})$ and $b \in \mathbb{F}^m$, either $Ax=b$ has a solution $x \in \mathbb{F}$ or there exists $y \in \mathscr{N}(A^H)$ such that $\inp{y}{b} \neq 0 $.
+\end{claim}
+\begin{proof}
+	First note that the above claim is logically equivalent to the following claim: $Ax=b$ has a solution $x \in \mathbb{F}$ if and only if for all $y \in \mathscr{N}(A^H)$ we have that $\inp{y}{b} =0 $. First suppose that $Ax=b$ has a solution $x \in \mathbb{F}$. Fix $y \in \mathscr{N}(A^H)$.  Then, 
+	\begin{equation}
+	\inp{y}{b} = \inp{y}{Ax} = \inp{A^Hy}{x} = \inp{0}{x} = 0
+	\end{equation}
+	because $y \in \mathscr{N}(A^H)$ implies that $A^Hy = 0$. Conversely, suppose that for all $y \in \mathscr{N}(A^H)$ we have that $\inp{y}{b} =0 $. For the sake of contradiction, assume that $Ax=b$ has no solution. This implies that $b \not\in \mathscr{R}(A)$, which in turn implies that $b \in \mathscr{R}(A^H)$. Thus, it must be that $\inp{b}{b} = 0$.  This of course would only be true if $b=0$ and be a contradiction otherwise. However, even in the case that $b=0$, $Ax=b$ has a solution, namely $x=0$. Thus, we have reached a contradiction and $Ax=b$ has a solution $x \in \mathbb{F}$.
+\end{proof}
+
+
+\subsubsection*{Exercise 3.45}
+\begin{claim}
+	$Sym_n (\mathbb{R})^{\perp} = Skew_n(\mathbb{R})$
+\end{claim}
+\begin{proof}
+	We first show that $Skew_n(\mathbb{R}) \subset Sym_n (\mathbb{R})^{\perp}$. Let $A \in Skew_n(\mathbb{R})$. Fix $B \in Sym_n (\mathbb{R})$. We must show that $A \in Sym_n (\mathbb{R})^{\perp}$, so we must show that $\inp{A}{B} = 0$. Indeed,
+	\begin{equation}
+	\inp{A}{B} = \inp{-A}{B} = -\inp{A}{B} = - tr(AB)
+	\end{equation}
+	Moreover, because we are working in the real numbers, we know that the inner product is symmetric. Therefore,
+	\begin{equation}
+	\inp{A}{B} = \inp{B}{A} = tr(B^TA) = tr(BA) = tr(AB)
+	\end{equation}
+	where $B^T = B$ because $B$ is symmetric. Therefore, these two chains of equalities give that $- tr(AB) =  tr(AB)$, which implies that $ tr(AB) = 0$. Thus, $\inp{A}{B} = 0$, so $A \in Sym_n (\mathbb{R})^{\perp}$.
+	
+	Next, we show that $Sym_n (\mathbb{R})^{\perp} \subset Skew_n(\mathbb{R})$. Let $A \in Sym_n (\mathbb{R})^{\perp}$ and $B \in Sym_n (\mathbb{R})$. Thus, $tr(A^TB) = 0$. We must show that $A \in Skew_n(\mathbb{R})$, or that $A^T = -A$. To that end, consider the sum $A + A^T$. Clearly, $(A + A^T) \in Sym_n (\mathbb{R})$, because $(A + A^T)^T = (A + A^T)$.  Then,
+	\begin{align*}
+	\inp{A + A^T}{B} &= \inp{A}{B} + \inp{A^T}{B} \\
+	&= tr(A^TB) + tr(AB) \\
+	&=  tr(AB) \\
+	&=  tr(AB^T) \tag{because $B$ is symmetric} \\
+	&= tr(B^TA) \\
+	&= tr((A^TB)^T) \\
+	&= tr(A^TB) = 0
+	\end{align*}
+	Therefore, $\inp{A + A^T}{B} = 0$ for all $B \in Sym_n (\mathbb{R})$. Consider $B = A + A^T$. Then, by the positivity of the inner product, we have that $\inp{A + A^T}{A + A^T} \geq 0$. However, we showed that this inner product was actually 0. This only occurs when one of the arguments itself is 0. Thus, $A + A^T = 0$, which implies that $A^T = -A$.
+\end{proof}
+
+\subsubsection*{Exercise 3.46}
+\begin{claim}
+Let $A$ be an $m\times n$ matrix.
+\begin{enumerate}
+	\item If $x \in \mathscr{N}(A^HA)$, then $Ax$  is both in $\mathscr{R}(A)$ and $\mathscr{N}(A^H)$.
+	\item $\mathscr{N}(A^HA) = \mathscr{N}(A)$.
+	\item $A$ and $A^HA$ have the same rank.
+	\item If $A$ has linearly independent columns, then $A^HA$ is nonsingular. 
+\end{enumerate}
+\end{claim}
+\begin{proof}
+
+\begin{enumerate}
+	\item Let $x \in \mathscr{N}(A^HA)$. Therefore, $A^HAx = A^H(Ax) = 0$, so $Ax \in \mathscr{N}(A^H)$. Additionally, $Ax$ is clearly in $\mathscr{R}(A)$. $\mathscr{R}(A)$ is the set of linear combinations of the columns of $A$, and $Ax$ is precisely this.
+	\item We first show that $\mathscr{N}(A) \subset \mathscr{N}(A^HA)$. Let $x \in \mathscr{N}(A)$. Therefore, $Ax = 0$. Multiply both sides by $A^H$ on the left to observe that $A^HA x = 0$. Therefore, $x \in  \mathscr{N}(A^HA)$. Next, we show that $\mathscr{N}(A^HA) \subset \mathscr{N}(A)$. Let $x \in  \mathscr{N}(A^HA)$. Thus, $A^HAx = 0$. We must show that $Ax =0$. To that end, consider $\norm{Ax}^2 = \inp{Ax}{Ax} = x^HA^HAx = 0$. Therefore, $\norm{Ax} =0$, which implies that $Ax=0$.
+	\item Suppose the underlying space has dimension $k$ and $A$ has rank $r$. Therefore, $\mathscr{N}(A)$ has dimension $k-r$. But by (2), we have that $\mathscr{N}(A^HA) = \mathscr{N}(A)$. Therefore, $\mathscr{N}(A^HA)$ has dimension $k-r$, which implies that $A^HA$ has rank $r$. Thus, $A$ and $A^HA$ have the same rank.
+	\item Suppose $A$ has linearly independent columns. Then, $A$ has full rank, i.e. rank $n$. Now, observe that $A^HA$ is an $n \times n$ matrix. By (3), we know that $A$ and $A^HA$ have the same rank, so that $A^HA$ has rank $n$. Therefore, $A^HA$ is nonsingular. 
+\end{enumerate}
+\end{proof}
+
+\subsubsection*{Exercise 3.47}
+\begin{claim}
+	Let $A$ be an $m\times n$ matrix of rank $n$. Let $P = A (A^HA)^{-1}A^H$. Then the following hold,
+	\begin{enumerate}
+	\item $P^2 = P$ 
+	\item $P^H = P$ 
+	\item $rank(P) = n$
+	\end{enumerate}
+\end{claim}
+
+\begin{proof}
+\begin{enumerate}
+	\item By direct calculation, observe that 
+	\begin{align*}
+	P^2 &= (A (A^HA)^{-1}A^H)(A (A^HA)^{-1}A^H) \\
+	&= A (A^HA)^{-1}(A^HA) (A^HA)^{-1}A^H \\
+	&= A (A^HA)^{-1}A^H \\
+	&= P
+	\end{align*}
+	\item Again by direct calculation,
+	\begin{align*}
+	P^H &= (A (A^HA)^{-1}A^H)^H \\
+	&= A ((A^HA)^{-1})^H A^H \\
+	&=  A ((A^HA)^{H})^{-1} A^H \\
+	&= A (A^HA)^{-1}A^H \\
+	&= P
+	\end{align*}
+	\item I will use the following identity in my proof: If $B$ is an $n\times k$ matrix of rank $n$, then $rank(AB) = rank(A)$. First consider the matrix product $(A^HA)^{-1}A^H$. By Exercise 3.46, if $A$ has rank $n$, then $(A^HA)^{-1}$ has rank $n$. Similarly, the conjugate transpose of a matrix also preserves rank, so $A^H$ has rank $n$. Therefore, $rank((A^HA)^{-1}A^H) = rank((A^HA)^{-1}) = n$. Now, consider $P = A(A^HA)^{-1}A^H$. Using the same argument, observe that $rank(P) = rank(A(A^HA)^{-1}A^H) = rank(A) = n$. 
+\end{enumerate}
+\end{proof}
+
+\subsubsection*{Exercise 3.48}
+\begin{claim}
+	Let $P(A) = \frac{A + A^T}{2}$ be the map $P: M_n(\mathbb{R}) \to M_n(\mathbb{R})$:
+	\begin{enumerate}
+		\item $P$ is linear
+		\item $P^2  = P$ 
+		\item $P^* = P$ 
+		\item $\mathscr{N}(P) = Skew_n(\mathbb{R})$
+		\item $\mathscr{R}(P) = Sym_n(\mathbb{R})$
+		\item $\norm{A-P(A)}_F = \sqrt{\frac{tr(A^TA) - tr(A^2)}{2}}$
+	\end{enumerate}
+\end{claim}
+\begin{proof}
+	Let $A, B \in M_n(\mathbb{R})$ and $\alpha, \beta \in \mathbb{R}$.
+	\begin{enumerate}
+		\item $P(\alpha A + \beta B) = \frac{(\alpha A + \beta B) + (\alpha A + \beta B)^T}{2} = \alpha \frac{A + A^T}{2} + \beta\frac{B + B^T}{2} = \alpha P(A) +\beta P(B)$. Therefore, $P$ is linear.
+		\item When $P(A) = \frac{A + A^T}{2}$ , we have that 
+		\begin{equation}
+		P^2(A) = P\left( \frac{A + A^T}{2} \right) = \frac{\left(\frac{A + A^T}{2}\right) + \left(\frac{A + A^T}{2}\right)^T}{2} = \frac{2A + 2A^T}{4} = \frac{A + A^T}{2} = P(A)
+		\end{equation}
+		Therefore, $P^2 = P$.
+		\item By definition $P^*$, must satisfy $\inp{A}{P(B)} = \inp{P^*(A)}{B}$ for all $A, B \in M_n(\mathbb{R})$. Consider the case where $A = B$. Then, we have that,
+		\begin{align*}
+			\inp{A}{P(A)} &= \inp{P^*A}{A} = tr((P^*(A))^TA) = tr((A^T P^*(A))^T) \\
+			&= tr(A^T P^*(A)) = \inp{A}{P^*(A)}
+		\end{align*}
+		Therefore, $P = P^*$.
+		\item We first show $\mathscr{N}(P) \subset Skew_n(\mathbb{R})$. To that end, let $A \in \mathscr{N}(P)$. Therefore, $P(A)A = 0$. Thus,
+		\begin{equation}
+		0 = \frac{A + A^T}{2} A = \frac{AA + A^TA}{2} 
+		\end{equation}
+		which implies $AA = -A^TA$, so it must be that $-A = A^T$, and hence $A \in Skew_n(\mathbb{R})$. We now show $\mathscr{N}(P) \supset Skew_n(\mathbb{R})$. To that end, let $A \in  Skew_n(\mathbb{R})$. Therefore, $A^T = -A$. Observe that,
+		\begin{equation}
+		P(A) A =  \frac{A + A^T}{2} A =  \frac{AA + A^TA}{2}  = \frac{AA - AA}{2} = 0
+		\end{equation}
+		Therefore, $A \in \mathscr{N}(P)$, so we have that $\mathscr{N}(P) = Skew_n(\mathbb{R})$.
+		\item We first show $\mathscr{R}(P) \supset Sym_n(\mathbb{R})$. Let $A \in Sym_n(\mathbb{R})$. Therefore, $A^T = A$. Then, observe that.
+		\begin{equation}
+			P(A) = \frac{A+A^T}{2} = \frac{2A}{A} = A
+		\end{equation}
+		Thus, $A \in \mathscr{R}(P)$. We next show $\mathscr{R}(P) \subset Sym_n(\mathbb{R})$. Let $A \in \mathscr{R}(P)$. Therefore, there exists some $B \in M_n(\mathbb{R})$ such that $P(B) = A$, or $\frac{B^T + B}{2} = A$. Then,
+		\begin{equation}
+		A^T = \left(\frac{B + B^T}{2}\right)^T = \frac{B + B^T}{2} = A
+		\end{equation}
+		Thus, $A^T = A$, so $A \in Sym_n(\mathbb{R})$. Therefore,  $\mathscr{R}(P) \subset Sym_n(\mathbb{R})$, which implies that $\mathscr{R}(P) = Sym_n(\mathbb{R})$.
+		\item 
+		\begin{align*}
+		\norm{A-P(A)}^2_F &= tr((A-P(A))^T(A - P(A))) \\
+		&= tr((A^T - P(A))(A - P(A))) \\
+		&= tr(A^TA) - 2tr(P(A)A) + tr((P(A))^2) \\
+		&= tr(A^TA) - tr(A^TA) - tr(A^2) + \frac{1}{4}(2tr(A^2) + 2tr(A^TA)) \\
+		&= \frac{tr(A^TA) - tr(A^2)}{2}
+		\end{align*}
+		Therefore, 
+		\begin{equation}
+			\norm{A-P(A)}_F = \sqrt{\frac{tr(A^TA) - tr(A^2)}{2}}
+		\end{equation}
+	\end{enumerate}
+	
+\end{proof}
+
+\subsubsection*{Exercise 3.50}
+Observe that we can write $rx^2 + sy^2 = 1$ as $y^2 = \frac{1}{s} - \frac{r}{s} x^2$. Therefore, to find the least square approximate for  $r$ and $s$ set,
+\begin{equation}
+	A = 
+	\begin{bmatrix}
+	1 & x^2_1 \\
+	1 & x^2_2 \\
+	\vdots & \vdots \\
+	1 & x^2_n 
+	\end{bmatrix} 	
+	\quad 
+	x = 
+	\begin{bmatrix}
+	\frac{1}{s} \\
+	-\frac{r}{s}
+	\end{bmatrix}
+	\quad 
+	b = 
+	\begin{bmatrix}
+	y^2_1 \\
+	y^2_2 \\
+	\vdots \\
+	y^2_n
+	\end{bmatrix}
+\end{equation}
+and then solve the corresponding normal equations $A^HAx = A^Hb$ for $r$ and $s$.
+\end{document}
+
+
