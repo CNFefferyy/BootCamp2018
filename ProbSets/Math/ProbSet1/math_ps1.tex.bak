@@ -1,0 +1,307 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{listings}
+\lstset{frame=single,
+  language=Python,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{mathrsfs}
+
+\usepackage{harvard}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+
+
+\begin{document}
+
+\begin{flushleft}
+  \textbf{\large{Problem Set \#1, Measure Theory}} \\
+  OSM Lab: Math \\
+  Rebekah Dix
+\end{flushleft}
+
+\vspace{5mm}
+
+\subsubsection*{Exercise 1.3}
+\begin{enumerate}
+  \item $\mathcal{G}_1$ is not an algebra (and hence not a $\sigma$-algebra). $\mathcal{G}_1$ is not closed under complements. Fix $a \in \mathbb{R}$ and let $A = (-\infty, a)$ be an open set in $\mathbb{R}$. Then $A^c = [a, \infty)$ is not an open set in $\mathbb{R}$. Therefore, we have that $A \in \mathcal{G}_1$ but $A^c \not\in \mathcal{G}_1$, which violates the definition of an algebra.
+  \item $\mathcal{G}_1$ is an algebra but not a $\sigma$-algebra. We first show that $\mathcal{G}_1$ is an algebra. Let $a = b \in \mathbb{R}$. Then $(a,b] = \emptyset \in \mathcal{G}_2$. $\mathcal{G}_2$ is also closed under complements. To see this, fix $a, b \in \mathbb{R}$. Then $(a,b]^c = (-\infty, a] \cup (b, \infty) \in \mathcal{G}_2$. Furthermore, $(-\infty, b]^c = (b, \infty) \in \mathcal{G}_2$, and $(a, \infty)^c = (-\infty, a] \in \mathcal{G}_2$. Finally, observe that $\mathcal{G}_2$ is closed under finite unions. A finite union of intervals of the form $(a, b], (-\infty, b],$ and $(a, \infty)$ still results in a finite union of intervals of the same form. Therefore, $\mathcal{G}_2$ is an algebra. However, $\mathcal{G}_2$ is not a $\sigma$-algebra. An infinite (countable) union of intervals of the form $(a, b], (-\infty, b],$ and $(a, \infty)$ does not belong to $\mathcal{G}_2$, by definition. Thus $\mathcal{G}_2$ is not a $\sigma$-algebra.
+  \item $\mathcal{G}_3$ is an algebra and a $\sigma$-algebra. The proof that $\emptyset \in \mathcal{G}_3$ and $\mathcal{G}_3$ is closed under complements is the same as the proof for $\mathcal{G}_2$. However,  $\mathcal{G}_3$ contains countable unions of intervals of the form $(a, b], (-\infty, b],$ and $(a, \infty)$ by definition; therefore $\mathcal{G}_3$ is closed under countable unions and is a $\sigma$-algebra.
+\end{enumerate}
+
+\subsubsection*{Exercise 1.7}
+Let $X$ be a nonempty set and $\mathcal{A}$ be a $\sigma$-algebra of $X$. The definition of a $\sigma$-algebra requires $\emptyset \in \mathcal{A}$. Furthermore, a $\sigma$-algebra is closed under complements, which implies that $\emptyset^c = X \in \mathcal{A}$. Therefore, to satisfy the definition, any $\sigma$-algebra must contain both $\emptyset$ and $X$, so that the set $\{\emptyset, X\}$ is the smallest $\sigma$-algebra. The power set of $X$, $\mathcal{P}(X)$, is the largest possible $\sigma$-algebra because it contains all possible subset of $X$. Recall that a $\sigma$-algebra is a family of subsets of $X$. Therefore, the largest possible family of subsets of $X$ contains all subsets of $X$, which is precisely $\mathcal{P}(X)$.
+
+\subsubsection*{Exercise 1.10}
+Let $\{S_{\alpha}\}$ be a family of $\sigma$-algebras on $X$. We show that $\cap_{\alpha} S_{\alpha}$ is also a $\sigma$-algebra.
+
+\begin{claim}
+  $\emptyset \in \cap_{\alpha} S_{\alpha}$
+\end{claim}
+Observe that $\emptyset \in {S}_{\alpha}$ for all $\alpha$ because $\{\mathcal{S}_{\alpha}\}$ is a family of $\sigma$-algebras. Therefore, $\emptyset \in \cap_{\alpha} S_{\alpha}$.
+
+\begin{claim}
+  $\cap_{\alpha} S_{\alpha}$ is closed under complements.
+\end{claim}
+Let $A \in \cap_{\alpha} S_{\alpha}$. Therefore, $A \in S_{\alpha}$ for all $\alpha$. Each $S_{\alpha}$ is a $\sigma$-algebra, which implies that $A^c \in S_{\alpha}$ for all $\alpha$. Therefore, $A^c \in \cap_{\alpha} S_{\alpha}$. Thus, $A \in \cap_{\alpha} S_{\alpha}$ implies $A^c \in \cap_{\alpha} S_{\alpha}$, so that $\cap_{\alpha} S_{\alpha}$ is closed under complements.
+
+\begin{claim}
+  $\cap_{\alpha} S_{\alpha}$ is closed under countable unions.
+\end{claim}
+Let $A_1, A_2, \ldots \in \cap_{\alpha} S_{\alpha}$. Therefore, $A_1, A_2, \ldots \in S_{\alpha}$ for all $\alpha$. Each $S_{\alpha}$ is a $\sigma$-algebra, which implies that $\cup_{n=1}^{\infty} A_n \in S_{\alpha}$ for all $\alpha$. Thus, $\cup_{n=1}^{\infty} A_n \in \cap_{\alpha} S_{\alpha}$, which shows that $\cap_{\alpha} S_{\alpha}$ is closed under countable unions.
+
+Therefore, we have showed that $\cap_{\alpha} S_{\alpha}$ is indeed a $\sigma$-algebra.
+
+\subsubsection*{Exercise 1.17}
+Let $(X,\mathcal{S}, \mu)$ be a measure space.
+\begin{claim}
+  $\mu$ is montone: if $A,B \in \mathcal{S}$, $A \subset B$, then $\mu(A) \leq \mu(B)$.
+\end{claim}
+\begin{proof}
+  Observe that we can write $B = (B \cap A^c) \cup (B \cap A) = (B \cap A^c) \cup A$, where the last inequality follows because $A \subset B$. By the definition of a measure, we have that $\mu(B) = \mu(B \cap A^c) + \mu(A)$, as $(B \cap A^c)$ and $(B \cap A) = A$ are clearly disjoint. Finally, note that by definition, a measure is nonnegative, so $\mu(B \cap A^c) \geq 0$. Therefore, $\mu(B) \geq \mu(A)$.
+\end{proof}
+
+\begin{claim}
+  $\mu$ is countably subadditive: if $\{A_i\}_{i=1}^{\infty} \subset \mathcal{S}$, then $\mu(\cup_{i=1}^{\infty} A_i) \leq \sum_{i=1}^{\infty} \mu(A_i)$.
+\end{claim}
+\begin{proof}
+  Let $A = \cup_{i=1}^{\infty} A_i$ and define $\{B_i\}_{i=1}^{\infty}$ as follows. Set $B_1 = A_1$, $B_2 = A_2 \cap A_1^c$, $B_3 = A_3 \cap (A_1 \cup A_2)^c$, and more generally, $B_i = A_i \cap (\cup_{n=1}^{i-1} A_i)^c$. Observe that $A = \cup_{i=1}^{\infty} B_i$. Also observe $B_i \subset A_i$, as we form $B_i$ by intersecting $A_i$ with other sets. Additionally, $B_i \cap B_j = \emptyset$ for all $i \ne j$, by construction. By monotonicity, proved above, we have that $\mu(B_i) \leq \mu(A_i)$. Therefore,
+  \begin{equation}
+    \mu(\cup_{i=1}^{\infty} A_i) = \mu(\cup_{i=1}^{\infty} B_i) = \sum_{i=1}^{\infty} \mu(B_i) \leq \sum_{i=1}^{\infty} \mu(A_i)
+  \end{equation}
+The second inequality follows by the disjointness of $B_i$ and $B_j$ for all $i \ne j$, and the fourth inequality follows by monotonicity.
+\end{proof}
+\subsubsection*{Exercise 1.18}
+Let $(X,\mathcal{S}, \mu)$ be a measure space and $B \in \mathcal{S}$. Define $\lambda : \mathcal{S} \rightarrow [0,\infty]$ by $\lambda(A) = \mu(A \cap B)$.
+\begin{claim}
+  $\lambda(\emptyset) = 0$
+\end{claim}
+By the definition of $\lambda$, $\lambda(\emptyset) = \mu(\emptyset \cap B) = \mu (\emptyset) = 0$, because $\mu$ is a measure.
+
+\begin{claim}
+  $\lambda(\cup_{i=1}^{\infty} A_i) = \sum_{i = 1}^{\infty} \lambda(A_i)$ for any $\{A_i\}_{i=1}^{\infty} \subset \mathcal{S}$ such that $A_i \cap A_j = \emptyset$ for all $i \ne j$.
+\end{claim}
+
+Fix $\{A_i\}_{i=1}^{\infty} \subset \mathcal{S}$ such that $A_i \cap A_j = \emptyset$ for all $i \ne j$. By the definition of $\lambda$,
+\begin{align*}
+  \lambda(\cup_{i=1}^{\infty} A_i) &= \mu((\cup_{i=1}^{\infty} A_i) \cap B) \\
+  &= \mu(\cup_{i=1}^{\infty} (A_i \cap B)) \\
+  &= \sum_{i=1}^{\infty} \mu(A_i \cap B) \\
+  &= \sum_{i=1}^{\infty} \lambda(A_i \cap B)
+\end{align*}
+The third equality follows because $A_i \cap A_j = \emptyset$ for all $i \ne j$ implies that $(A_i \cap B) \cap (A_j \cap B) = \emptyset$ for all $i \ne  j$. Thus, as $\mu$ is a measure, we may break of the disjoint into a sum of the individual measures. Finally, the last inequality follows by the definition of $\lambda$.
+
+\subsubsection*{Exercise 1.20}
+We use the following lemma in our proof:
+\begin{lemma}
+  If $A_n \subset A_1$, then $\mu(A_1) - \mu(A_n) = \mu(A_1 \setminus A_n)$
+\end{lemma}
+\begin{proof}
+    We can write $A_1 = (A_1 \setminus A_n) \cup A_n$, which is a disjoint union, because $A_n \subset A_1$. Therefore, $\mu(A_1) = \mu(A_1 \setminus A_n) + \mu(A_n)$. The lemma follows.
+\end{proof}
+
+Define $B_n = A_1 \setminus A_n$ for $n \in \mathbb{N}$ and let $B = \cup_{n=1}^{\infty} B_n$. Observe that $\{B_n\}_{n=1}^{\infty}$ forms an increasing sequence because $A_n \supset A_{n+1}$ for all $n$ is a decreasing sequence of sets. Let $A = \cap_{n=1}^{\infty} A_n$. Then,
+
+\begin{align*}
+  \mu(A_1) - \mu(A) &= \mu(A_1 - A) \tag{by the above lemma}\\
+  &= \mu(B) \tag{by the definition of $B$} \\
+  &= \lim_{n \rightarrow \infty} \mu(B_n) \tag{by part (i) of the theorem} \\
+  &= \lim_{n \rightarrow \infty} (\mu(A_1) - \mu(A_n)) \tag{by the definition of $B_n$}
+\end{align*}
+
+Therefore, because $\mu(A_1) < \infty$, we may subtract $\mu(A_1)$ from both sides of the above sequence of equations to find that,
+\begin{equation}
+  \mu(A) = \lim_{n \rightarrow \infty} \mu(A_n)
+\end{equation}
+
+\subsubsection*{Exercise 2.10}
+
+Recall that $\mu^*$ is countably subadditive. Write $B \subset X$ as $B = (B \cap E) \cup (B \cap E^c)$. By countable subadditivity, we have that $\mu^*(B) \leq \mu^*(B \cap E) + \mu^*(B \cap E^c)$. Therefore, if $\mu^*(B) = \mu^*(B \cap E) + \mu^*(B \cap E^c)$, then it follows that $\mu^*(B) \geq \mu^*(B \cap E) + \mu^*(B \cap E^c)$. Therefore, satisfying the equality condition implies the condition (*) in Theorem 2.8.
+
+\subsubsection*{Exercise 2.14}
+Recall that by Definition 1.11, $\sigma(\mathcal{O}) :=$ the smallest $\sigma$-algebra containing all open sets of $X$. We call $\sigma(\mathcal{O})$ the Borel $\sigma$-algebra of $X$ written as $\mathcal{B}(X)$. Next, by the Carath\'eodory Construction, $\mathcal{M}$ is a $\sigma$-algebra. Additionally, $\mathcal{M}$ is the collection of all Lebesgue measurable sets. The collection of all Lebesgue measurable sets contains open sets. Therefore, because $\mathcal{B}(X)$ is defined as the intersection of all $\sigma$-algebra containing open sets, we must have that $\mathcal{B}(X) \subset \mathcal{M}$.
+
+\subsubsection*{Exercise 3.1}
+\begin{claim}
+  Every countable subset of the real line has Lebesgue measure $0$.
+\end{claim}
+\begin{proof}
+  Let $A = \{a_1, a_2, \ldots \}$ be a countable subset of the real line. Fix $\epsilon > 0$. We construct a sequence of intervals $\{I_n\}_{n=1}^{\infty}$ as follows. Let $I_1 = (a_1 - \frac{\epsilon}{2}, a_1 + \frac{\epsilon}{2})$, which has length $\epsilon$. Similarly, let $I_2 = (a_2 - \frac{\epsilon}{4}, a_2 + \frac{\epsilon}{4})$, which has length $\frac{\epsilon}{2}$. For a general interval $n$, we write $I_n = (a_n - \frac{\epsilon}{2^n}, a_n + \frac{\epsilon}{2^n})$, which has length $\frac{\epsilon}{2^{n-1}}$. Now, the sum of the lengths of the intervals is,
+  \begin{equation}
+    \sum_{n=1}^{\infty} \frac{\epsilon}{2^{n-1}} = 2\epsilon
+  \end{equation}
+  By definition, the Lebesgue (outer) measure of $A$ is,
+  \begin{equation}
+    \mu(A) = \inf\{\sum_{n=1}^{\infty} (d_n - c_n) : A \subset \bigcup\limits_{n=1}^{\infty} (c_n, d_n] \}
+  \end{equation}
+  Above, we demonstrated an open cover of $A$ such that the sum of the intervals is arbitrarily small. Therefore, the measure of this open cover is arbitrarily small (yet weakly positive) and hence 0. Thus, $\mu(A) = 0$.
+\end{proof}
+
+\subsubsection*{Exercise 3.4}
+
+We show that the following conditions are equivalent:
+\begin{enumerate}
+  \item $\{x \in X : f(x) < a \} \in \mathcal{M}$
+  \item $\{x \in X : f(x) \geq a \} \in \mathcal{M}$
+  \item $\{x \in X : f(x) > a \} \in \mathcal{M}$
+  \item $\{x \in X : f(x) \leq a \} \in \mathcal{M}$
+\end{enumerate}
+\begin{proof}
+  $(1) \implies (2)$: Suppose $\{x \in X : f(x) < a \} \in \mathcal{M}$. Observe that $f^{-1}([a, \infty)) = (f^{-1}(-\infty, a))^c$. $\mathcal{M}$ is closed under complements, therefore $f^{-1}([a, \infty)) \in \mathcal{M}$.
+
+  $(2) \implies (3)$: Suppose $\{x \in X : f(x) \geq a \} \in \mathcal{M}$. Observe that $f^{-1}((a, \infty)) = \cap_{n=1}^{\infty} f^{-1}([a - \frac{1}{n}, \infty))$. By assumption, each of the sets in this intersection is in $\mathcal{M}$. $\mathcal{M}$ is closed under countable intersections. Therefore, $f^{-1}(a, \infty) \in \mathcal{M}$.
+
+  $(3) \implies (4)$:  Suppose $\{x \in X : f(x) > a \} \in \mathcal{M}$. Observe that $f^{-1}((-\infty, a]) = (f^{-1}(a, \infty))^c$. $\mathcal{M}$ is closed under complements, therefore $f^{-1}((-\infty, a]) \in \mathcal{M}$.
+
+  $(4) \implies (1)$: Suppose $\{x \in X : f(x) \leq a \} \in \mathcal{M}$. Observe that $f^{-1}((-\infty, a)) = \cap_{n=1}^{\infty} f^{-1}((-\infty, a + \frac{1}{n}))$. By assumption, each of the sets in this intersection is in $\mathcal{M}$. $\mathcal{M}$ is closed under countable intersections. Therefore, $f^{-1}((a, \infty)) \in \mathcal{M}$.
+\end{proof}
+
+
+\subsubsection*{Exercise 3.7}
+Suppose $f$ and $g$ are measurable functions on $(X,\mathcal{M})$. Then the following are measurable:
+\begin{enumerate}
+	\item $f + g$
+	\item $f \cdot g$
+	\item $\max(f,g)$
+	\item $\min(f,g)$
+	\item $|f|$
+\end{enumerate}
+
+I prove $(3)$, $(4)$, and $(5)$ directly from the definition of measurable functions and use results from Exercise 3.4 to rewrite the condition for measurability in equivalent forms to make the proofs easier.
+
+\begin{enumerate}
+  \item Consider $F(f(x) + g(x)) = f(x) + g(x)$. Then $F$ is continuous and by part 4 of Theorem 3.6, measurable. Therefore, $f + g$ is measurable.
+  \item Consdier $F(f(x) + g(x)) = f(x)g(x)$. Then $F$ is continuous and by part 4 of Theorem 3.6, measurable. Therefore, $f \cdot g$ is measurable.
+  \item Because $f$ and $g$ are measurable functions on $(X,\mathcal{M})$, we have that for all $a \in \mathbb{R}$, $\{x \in X : f(x) < a \} \in \mathcal{M}$ and $\{x \in X : g(x) < a \} \in \mathcal{M}$. Therefore, it follows that $\{x \in X : \max(f(x),g(x)) < a \} = \{x \in X : f(x) < a \} \cap \{x \in X : g(x) < a \}$. $\mathcal{M}$ is closed under countable intersections, therefore, $\{x \in X : \max(f(x),g(x)) < a \} \in \mathcal{M}$, so that $\max(f(x), g(x))$ is measurable.
+  \item The proof that $\min(f,g)$ is measurable is analogous to the proof of (3). The key observation here is that $\{x \in X : \min(f(x),g(x)) > a \} = \{x \in X : f(x) > a \} \cap \{x \in X : g(x) > a \}$. $\mathcal{M}$ is closed under countable intersections, therefore, $\{x \in X : \min(f(x),g(x)) > a \} \in \mathcal{M}$, so that $\min(f(x), g(x))$ is measurable.
+  \item Observe that $\{x \in X : |f(x)| > a \} = \{x \in X : f(x) < -a \} \cup \{x \in X : f(x) > a \}$. Both of these sets are in $\mathcal{M}$. $\mathcal{M}$ is closed under countable unions, therefore, $\{x \in X : |f(x)| > a \} \in \mathcal{M}$, so that $|f(x)|$ is measurable.
+\end{enumerate}
+
+\subsubsection*{Exercise 3.14}
+\begin{proof}
+ Let $f$ be bounded, and fix $\epsilon > 0$. Then, there exists an $M \in \mathbb{R}$ such that $|f(x)| \leq M$ for all $x \in X$. Therefore, $x \in E^M_i$ for some $i$ and all $x \in X$. Observe that there is an $N \in \mathbb{R}$ and $N \geq M$ such that $\frac{1}{2^N} < \epsilon$. Therefore, for all $x \in X$ and $n \geq N$, $|| s_n(x) - f(x) || < \epsilon$. Therefore, the convergence in part (1) of Theorem 3.13 is uniform.
+\end{proof}
+
+\subsubsection*{Exercise 4.13}
+To show that $f \in \mathscr{L}^1(\mu, E)$, we must show that both $\int_E f^+ d\mu$ and $\int_E f^- d\mu$ are finite.
+
+Recall that $||f|| = f^+ + f^-$. Also note that $0 \leq f^+$ and $0 \leq f^-$ by definition. Because $||f|| < M$ on $E$, then $0 \leq f^+ < M$ and $0 \leq f^- < M$ on $E$.
+
+Then, by Proposition 4.5, because $\mu(E) < \infty$, we have that,
+\begin{align*}
+  &\int_E f^+ d\mu < M \mu(E) < \infty \\
+  &\int_E f^- d\mu < M \mu(E) < \infty \\
+\end{align*}
+Therefore, both $\int_E f^+ d\mu$ and $\int_E f^- d\mu$ are finite. Then by definition, $f \in \mathscr{L}^1(\mu, E)$.
+
+\subsubsection*{Exercise 4.14}
+We prove the contrapositive of this statement. To that end, suppose there exists a measurable set $\hat{E} \subset E$ such that $f$ is infinite on $\hat{E}$. Here, we assume that $f$ reaches positive infinity (without loss of generality, the proof for negative infinity or mixed between positive and negative infinity is analogous). It follows that,
+\begin{equation}
+	\infty = \int_{\hat{E}} f d\mu \leq \int_E f d\mu \leq \int_E ||f|| d\mu
+\end{equation}
+The first inequality is proved in 4.16, below. However, this implies that $f \not\in \mathscr{L}^1(\mu,E)$.
+
+\subsubsection*{Exercise 4.15}
+Let $f,g \in \mathscr{L}^1(\mu,E)$. Define the set of simple functions $B(f) = \{ s : 0 \leq s \leq f, s \text{ simple, measurable}  \}$. Let $f \leq g$. If follows that $f^+ \leq g^+$ and $f^- \geq g^-$. Then following a similar proof to Proposition 4.7, we have that $B(f^+) \subset B(g^+)$ and $B(g^-) \subset B(f^-)$. These two relationships imply that $ \int_E f^+ d\mu \leq \int_E g^+ d\mu$ and $\int_E f^- d\mu \geq \int_E g^- d\mu$. Then by the definition of the Lebesgue integral, we observe that,
+\begin{equation}
+	\int_E fd\mu = \int_E f^+ d\mu - \int_E f^- d\mu \leq \int_E g^+ d\mu - \int_E g^- d\mu = \int_E g d\mu
+\end{equation}
+Therefore, we have that,
+\begin{equation}
+	\int_E fd\mu \leq \int_E g d\mu
+\end{equation}
+
+
+
+\subsubsection*{Exercise 4.16}
+Following Definition 4.1, fix a simple function $s(x) = \sum_{i=1}^{N} c_i \chi_{E_{i}}$, where $E_i \in \mathcal{M}$. Let $A \subset E \in \mathcal{M}$. Then, by the monotonicity of measures, we have that $\mu(A \cap E_i) \leq \mu(E \cap E_i)$ for all $i$. Therefore, combining this result with Definition 4.1, we have that,
+\begin{equation} \label{chain}
+	\int_A  sd\mu = \sum_{i=1}^{N} c_i \mu(A \cap E_i) \leq \sum_{i=1}^{N} c_i \mu(E \cap E_i) = \int_E s d\mu
+\end{equation}
+Now, by Definition 4.2, we have that,
+\begin{align*}
+	\int_A f d\mu = \sup \{ \int_A s d\mu : 0 \leq s \leq f, s \text{ simple, measurable}  \}
+\end{align*}
+and 
+\begin{align*}
+	\int_E f d\mu = \sup \{ \int_E s d\mu : 0 \leq s \leq f, s \text{ simple, measurable}  \}
+\end{align*}
+Now because our choice of $s$ was arbitrary, we have by Equation (\ref{chain}) that,
+\begin{equation}
+ \int_A f d\mu \leq \int_E f d\mu 
+\end{equation}
+Because $f \in \mathscr{L}^1(\mu, E)$, by definition we have that $\int_E ||f|| d\mu < \infty$. Therefore, $\int_E f d\mu <\infty$. Finally, it follows that $\int_A f d\mu < \infty$, which in turn implies $\int_A f^+ d\mu < \infty$ and $\int_A f^{-} d\mu < \infty$, so that $f \in \mathscr{L}^1 (\mu, A)$.
+
+\subsubsection*{Exercise 4.21}
+Let $A, B \in \mathcal{M}$, $B \subset A$, $\mu(A - B) = 0$, and $f \in \mathscr{L}^1$. Then, by Proposition 4.6. we have that,
+\begin{equation}
+  \int_{A-B} f d\mu = 0.
+\end{equation}
+Recall that $f^+$ and $f^-$ are non-negative $\mathcal{M}$-measurable functions because $f \in \mathscr{L}^1$. By Theorem 4.19, we have that $\mu_1(A) =  \int_A f^+ d\mu$ and $\mu_2(A) = \int_A f^- d\mu$ are measures on $\mathcal{M}$. Therefore, by the definition of the Lesbesgue integral, 
+\begin{equation}
+	\int_A f d\mu =  \int_A f^+ d\mu -  \int_A f^- d\mu = \mu_1(A) - \mu_2(A)
+\end{equation}
+Now, consider the disjoint union $A = (A - B) \cup B$.  Because both $\mu_1(A)$ and $\mu_2(A)$ are measures, we have that $\mu_i(A) = \mu_i(A - B) + \mu_i(B)$ for $i=1,2$, because measures are additively separable on disjoint sets. Therefore, we have that $\mu_i(A) = \mu_i (B)$ for $i=1,2$ because $\mu(A - B) = 0$. Therefore,
+\begin{equation}
+	\int_A f d\mu = \mu_1(B) - \mu_2(B) = \int_B f d\mu
+\end{equation}
+This result clearly implies that
+\begin{equation}
+	\int_A f d\mu \leq \int_{B} f d\mu
+\end{equation}
+\end{document}
