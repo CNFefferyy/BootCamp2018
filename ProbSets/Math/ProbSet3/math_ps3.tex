@@ -1,0 +1,626 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{listings}
+\lstset{frame=single,
+  language=Python,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{mathrsfs}
+
+\usepackage{harvard}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+
+\usepackage{mathtools}
+% commands
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\usepackage{mathrsfs}
+
+
+\begin{document}
+
+\begin{flushleft}
+  \textbf{\large{Problem Set \#3, Spectral Theory}} \\
+  OSM Lab: Math \\
+  Rebekah Dix
+\end{flushleft}
+
+\vspace{5mm}
+
+\subsubsection*{Exercise 4.2}
+Observe that we can write any element of $L^2([0,1]; \mathbb{R})$ as,$p(x) = a_0 + a_1 x + a_2 x^2$, and thus can represent $p(x)$ by the vector $[a_0, a_1, a_2]$. Then, the derivative operator can be written as,
+\begin{equation}
+	D[p](x) = 
+	\begin{bmatrix}
+	0 & 1 & 0 \\
+	0 & 0 & 2 \\
+	0 & 0 & 0 
+	\end{bmatrix}
+	\begin{bmatrix}
+	a_0 \\ a_1 \\ a_2
+	\end{bmatrix}
+	= a_1 + 2a_2 x
+\end{equation}
+Then, the characteristic polynomial of $D[p](x)$ is given by,
+\begin{equation}
+	det(\lambda I - D[p](x)) = 
+	\left|
+	\begin{matrix}
+	\lambda & -1 & 0 \\
+	0 & \lambda & -2 \\
+	0 & 0 & \lambda
+	\end{matrix}
+	\right|
+	= \lambda^3
+\end{equation}
+Therefore, $D[p](x)$ has one eigenvalue $\lambda = 0$, which has an algebraic multiplicity of 3. To find the eigenspace, observe that an eigenvalue must have $a_1 = a_2 = 0$, but $a_0$ is free to be anything. Therefore, the eigenspace is simply the span of $[1, 0, 0]$. This has a geometric multiplicity of 1. 
+
+\subsubsection*{Exercise 4.4}
+\begin{claim}
+	An Hermitian 2x2 matrix has only real eigenvalues.
+\end{claim}
+\begin{proof}
+	Let $A \in M_2(\mathbb{F})$ be an Hermitian 2x2 matrix. By definition, $A^H = A$. This leads to a restriction on the entries of $A$. By inspection, we find that $A$ must take the form,
+	\begin{equation}
+	A =
+	\begin{bmatrix}
+	a & c + di \\
+	c - di & b
+	\end{bmatrix}
+	\end{equation}
+	where $a, b, c, d \in \mathbb{R}$.	That is, the diagonal elements of $A$ must be real, and the off-diagonal elements of $A$ must be the complex conjugate of each other. Next, recall that the characteristic polynomial of any 2x2 matrix as the form $p(\lambda) = \lambda^2 - tr(A)\lambda + det(A)$.  Thus, the characteristic polynomial of $A$ is,
+	\begin{equation}\label{char1}
+	p(\lambda) = \lambda^2 - (a + b)\lambda + (ab - (c^2 + d^2))
+	\end{equation}
+	Equation (\ref{char1}) is a quadratic equation in $\lambda$, and therefore has real roots if and only if the discriminant is positive. That is, if $(a+b)^2 - 4(ab - (c^2 - d^2))$ is positive. However, 
+	\begin{equation}\label{discriminant}
+	(a+b)^2 - 4(ab - (c^2 - d^2)) = (a-b)^2 + 4(c^2 + d^2)
+	\end{equation}
+	Observe that the expression in (\ref{discriminant}) is a sum of squares and therefore always positive. Thus, the characteristic polynomial of $A$ has real roots. Therefore, $A$ has real eigenvalues. Our choice of $A$ represented an arbitrary  Hermitian 2x2 matrix, so that an Hermitian 2x2 matrix has only real eigenvalues.
+\end{proof}
+
+\begin{claim}
+	A skew-Hermitian 2x2 matrix only has imaginary eigenvalues. 
+\end{claim}
+\begin{proof}
+	Let $A \in M_2(\mathbb{F})$ be a skew-Hermitian 2x2 matrix. By definition, $A^H = -A$. This leads to a restriction on the entries of $A$. By inspection, we find that $A$ must take the form,
+	\begin{equation}
+	A =
+	\begin{bmatrix}
+	ai & c + di \\
+	-c + di & bi
+	\end{bmatrix}
+	\end{equation}
+	where $a, b, c, d \in \mathbb{R}$.	 The characteristic polynomial of $A$ is,
+	\begin{equation}
+	p(\lambda) = \lambda^2 -i(a+b)\lambda - ab + c^2 + d^2
+	\end{equation}
+	This equation is quadratic in $\lambda$, and therefore has imaginary roots if and only if the discriminant is negative. The discriminant of this quadratic equation is,
+	\begin{equation}
+	(-i(a+b))^2 - 4(ab +c^2 + d^2) = -(a-b)^2 -4c^2 - 4d^2
+	\end{equation}
+	Observe that the above equation is a difference of squares, and therefore is weakly negative. Then, the characteristic polynomial will have imaginary roots so that all eigenvalues of $A$ are imaginary. Our choice of $A$ represented an arbitrary skew-Hermitian 2x2 matrix, so that a skew-Hermitian 2x2 matrix has only imaginary eigenvalues.
+\end{proof}
+
+\subsubsection*{Exercise 4.6}
+\begin{claim}
+	The diagonal entries of an upper-triangular (or lower-triangular matrix) are its eigenvalues.
+\end{claim}
+\begin{proof}
+	Let $A \in M_n(\mathbb{F})$ be an upper-triangular matrix. Fix $\lambda \in \mathbb{C}$. Observe that $\lambda I - A$ is also an upper-triangular matrix. Recall that the determinant of an upper-triangular matrix is the product of the elements on the diagonal. Therefore, we find the characteristic polynomial of $A$ is,
+	\begin{equation}
+	p(\lambda) = det(\lambda I - A) = \prod_{i=1}^{n} (\lambda - a_{ii})
+	\end{equation}
+	The roots of this equation are precisely the diagonal elements of $A$, so that the diagonal entries of an upper-triangular are its eigenvalues. The proof is analogous for a lower-diagonal matrix since the determinant of a lower-diagonal matrix is also the product of its diagonal elements. 
+\end{proof}
+
+\subsubsection*{Exercise 4.8}
+\noindent\textbf{Part (i)} Let $V$ be the span of the set $S = \{\sin(x), \cos(x), \sin(2x), \cos(2x)\}$ in the vector space $C^{\infty}(\mathbb{R}; \mathbb{R})$. 
+\begin{claim}
+	$S$ is a basis for $V$.
+\end{claim}
+\begin{proof}
+	Clearly, by the definition of $V$, $S$ spans $V$. Therefore, we must show that $S$ is linearly independent. For the sake of contradiction, assume that $S$ is linearly dependent. Then, there exist $a, b, c, d, \in \mathbb{R}$ not all zero such that $a \sin(x) + b \cos(x) + c\sin(2x) + d\cos(2x) = 0$ for all  $x$. Now, let us consider special cases of this condition to pin down the values of the constants. First, suppose $x = 0$. Then, we find that $b + d = 0$. Next, suppose $x = \pi$. Then, we find that $-b + d = 0$.  These two equations imply that $b = d = 0$. Now, consider $x = \frac{\pi}{2}$. This implies that $a = 0$. Next, suppose that $ x = \frac{\pi}{4}$. This in turn implies that $d= 0$. Therefore, we have arrived at a contradiction, and it must bbe that $S$ is indeed a linearly independent set. Therefore, $S$ is a basis for $V$. 
+\end{proof}
+
+\noindent\textbf{Part (ii)}
+Let $D$ be the derivative operator. Since $S$ is a basis for $V$, we may write any element of $V$ as a linearly combination of the elements of $S$. We order the space as follows: $v(x) = a \sin(x) + b \cos(x) + c\sin(2x) + d\cos(2x)$. Then, 
+\begin{equation}
+	D[v](x) = 
+	\begin{bmatrix}
+	0 & -1 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & -2 \\
+	0 & 0 & 2 & 0 
+	\end{bmatrix}
+	\begin{bmatrix}
+	a \\ b \\ c \\ d
+	\end{bmatrix}
+	= a \cos(x) - b\sin(x) + 2c \cos(2x) - 2d\sin(2x)
+\end{equation}
+
+\noindent\textbf{Part (iii)}
+Consider the subspaces $U = \{\sin(x), \cos(x)\}$ and $V = \{\sin(2x), \cos(2x)\}$. We show that these are two complementary $D$-invariant subspaces in $V$. Consider $u(x) = a \sin(x) + b\cos(x)$. Then, $D[u](x) = a \cos(x) - b \sin(x) \in U$. Similarly, consider $v(x) = a \sin(2x) + b \cos(2x)$. Then, $D[v](x) = 2 a \cos(2x) - 2b \sin(2x) \in V$. Therefore, $U$ and $V$ are $D$-invariant. Clearly, $U$ and $V$ are complementary. 
+
+\subsubsection*{Exercise 4.13}
+Let $A = \begin{bmatrix} .8 & .4 \\ .2 & .6 \end{bmatrix}$. The characteristic polynomial of $A$ is $p(\lambda) = det(\lambda I - A) = (\lambda - 1)(\lambda - \frac{2}{5})$. Thus, the eigenvalues are $\lambda = 1, \frac{2}{5}$. By direct computation, the corresponding eigenvectors are $[2,  1]^T$ and $[-1, 1]^T$ respectively. Then, the matrix  $P = \begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix}$  causes $P^{-1}AP$ to be diagonal. Indeed, it follows by direct calculation that,
+\begin{equation}
+	D = \begin{bmatrix} 1 & 0 \\ 0 & \frac{2}{5} \end{bmatrix} 
+	   = \frac{1}{3} \begin{bmatrix} 1 & 1 \\ -1 & 2 \end{bmatrix}
+	      \begin{bmatrix} .8 & .4 \\ .2 & .6 \end{bmatrix}
+	       \begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix} = P^{-1} A P
+\end{equation}
+
+
+\subsubsection*{Exercise 4.15}
+\begin{claim}
+	If $(\lambda_i)_{i=1}^n$ are the eigenvalues of a semisimple matrix $A \in M_n(\mathbb{F})$ and $f(x) = a_0 + a_1 x + \cdots  + a_n x^n$ is a polynomial, then $(f(\lambda_i))_{i=1}^{n}$ are the eigenvalues of $f(A) = a_0 I + a_1 A + \cdots + a_n A^n$. 
+\end{claim}
+\begin{proof}
+	Let $A$ be a semisimple matrix, then $A$ is diagonalizable. Thus, $A = P D P^{-1}$, where the columns of $P$ are the eigenvectors corresponding to the eigenvalues of $A$ and $D$ is a diagonal matrix whose diagonal elements are the eigenvalues of $A$. Then,
+	\begin{align*}
+	f(A) = f( P D P^{-1}) &= a_0 I + a_1 P D P^{-1} + \cdots + a_n (P D P^{-1})^n \\
+	&= a_0 I + a_1 P D P^{-1} + \cdots + a_n P D^n P^{-1} \\
+	&= P( a_0 I + a_1 D + \cdots + a_n D^n) P^{-1} 
+	\end{align*}
+	Let $\hat{D} = a_0 I + a_1 D + \cdots + a_n D^n$. Thus, $f(A)$ is similar to $\hat{D}$, so they have the same eigenvalues. The eigenvalues of $\hat{D}$ are $(f(\lambda_i))_{i=1}^{n}$, the diagonal elements of $\hat{D}$. Thus, the eigenvalues of $f(A)$ are $(f(\lambda_i))_{i=1}^{n}$.
+\end{proof}
+
+\subsubsection*{Exercise 4.16}
+Let $A = \begin{bmatrix} .8 & .4 \\ .2 & .6 \end{bmatrix}$. Let $P$ and $D$ be as in Exercise 4.13. 
+
+\noindent\textbf{Part (i)}
+\begin{align*}
+A^k = P D^k P^{-1} &= \begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix} 
+  	  \begin{bmatrix} 1 & 0 \\ 0 & \frac{2}{5}^k  \end{bmatrix}
+	  \frac{1}{3} \begin{bmatrix} 1 & 1 \\ -1 & 2 \end{bmatrix} \\
+	  &= \frac{1}{3}  
+	  \begin{bmatrix}
+	  2 + .4^k  & 2 - 2 * .4^k \\
+	  1 - .4^k & 1 + 2 * .4^k
+	  \end{bmatrix}
+\end{align*}
+And,
+\begin{align*}
+	\lim_{n\to\infty} A^n &= \lim_{n\to\infty} P D^n P^{-1} = P  \left(\lim_{n\to\infty} D^n \right) P^{-1} \\
+&=  \begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix} 
+  	  \left(\lim_{n\to\infty}\begin{bmatrix} 1 & 0 \\ 0 & \frac{2}{5}  \end{bmatrix}\right) 
+	  \frac{1}{3} \begin{bmatrix} 1 & 1 \\ -1 & 2 \end{bmatrix} \\
+	  &= \begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix} 
+	  \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}
+	  \frac{1}{3} \begin{bmatrix} 1 & 1 \\ -1 & 2 \end{bmatrix} \\
+	  &= \frac{1}{3}
+	  \begin{bmatrix}
+	  2 & 2 \\
+	  1 & 1
+	  \end{bmatrix}
+\end{align*}
+Then,
+\begin{align*}
+	A^k - B = 
+	\begin{bmatrix}
+	.4^k & -2 * .4^k \\
+	-.4^k & 2 * .4^k
+	\end{bmatrix}
+\end{align*}
+The 1-norm of a matrix is the largest column sum. Clearly, $A^k - B$ converges with respect to the 1-norm since the columns both sum to 0. 
+
+\noindent\textbf{Part (ii)}
+The $\infty$-norm of matrix is the largest row sum. However, clearly $-.4^k  + 2 * .4^k \to 0$ as $k \to \infty$. Therefore, the same matrix $B$ works. Next, 
+\begin{align*}
+	\norm{A^k - B}_F &= 
+	\sqrt{tr\left( 
+	\begin{bmatrix}
+	.4^k &  -.4^k \\
+	-2 * .4^k & 2 * .4^k
+	\end{bmatrix}
+	\begin{bmatrix}
+	.4^k & -2 * .4^k \\
+	-.4^k & 2 * .4^k
+	\end{bmatrix}
+	\right)} \\
+	&= \sqrt{tr\left(
+	\begin{bmatrix}
+	2 * .4^{2k} & -4 * .4^{2k} \\
+	-4 * .4^{2k} & 8 * .4^{2k}
+	\end{bmatrix}
+	\right)} \\
+	&= \sqrt{10 * .4^{2k}}
+\end{align*}
+Clearly, $\sqrt{10 * .4^{2k}}$ goes to 0 as $k$ goes to infinity. Therefore, $\norm{A^k - B}_F \to 0$. Thus, convergence does not appear to depend on the choice of norm. 
+
+\noindent\textbf{Part (iii)}
+By Theorem 4.3.12, we know that $(f(\lambda_i))_{i=1}^2$ are the eigenvalues of $f(A) = 3I + 5A + A^3$, where $f(x) = 3 + 5x + x^3$. Therefore, the eigenvalues of $f(A)$ are $f(1) = 9$ and $f(.4) = 5.064$. 
+
+\subsubsection*{Exercise 4.18}
+\begin{claim}
+	If $\lambda$  is an eigenvalue of $A \in M_n (\mathbb{F}^n)$, then there exists a nonzero row vector $x^T$ such that $x^TA = \lambda x^T$. 
+\end{claim}
+\begin{proof}
+	Let $A \in M_n (\mathbb{F}^n)$. First note that $A$ and $A^T$ have the same eigenvalues. Indeed, $A$ and $A^T$ have the same characteristic polynomial:
+	\begin{align*}
+	p_A(z) &= det(zI - A) \\
+				&= det((zI - A)^T) \\
+				&= det(zI - A^T)  \\
+				&= p_{A^T} (z)
+	\end{align*}
+	Therefore, if $\lambda$ is an eigenvalue of $A$, then $\lambda$ is an eigenvalue of $A^T$. Thus, suppose $\lambda$ is an eigenvalue of $A$ (and hence $A^T$). Then there exists some nonzero $y \in \mathbb{F}^n$ such that $A^Ty = \lambda y$. Taking the transpose of both sides of this equation, observe that $y^TA = \lambda y^T$. Thus, there exists a nonzero row vector $y^T$ such that $y^TA = \lambda y^T$. 
+\end{proof}
+
+\subsubsection*{Exercise 4.20}
+\begin{claim}
+	If $A$ is Hermitian and orthonormally similar to $B$, then $B$ is also Hermitian. 
+\end{claim}
+\begin{proof}
+	Let $A, B \in M_n(\mathbb{F}^n)$, $A$ be Hermitian, and $A$ be orthonormally similar to $B$. Therefore, $A = A^H$ there exists an orthonormal matrix $U$ such that $B = U^H A U$.  Consider taking the transpose of each side of this equation. We see that $B^H = (U^H A U)^H = U^H A^H U = U^H A U = B$. Therefore, $B = B^H$, so that $B$ is Hermitian. 
+\end{proof}
+
+\subsubsection*{Exercise 4.24}
+\begin{claim}
+	Given $A \in M_n(\mathbb{C}^n)$, define the Rayleigh quotient as 
+	\begin{equation}
+		\rho(x) = \frac{\inp{x}{Ax}}{\norm{x}^2}
+	\end{equation}
+	The Rayleigh quotient can only take on real values for Hermitian matrices and only imaginary values for skew-Hermitian matrices.
+\end{claim}
+\begin{proof}
+	First, suppose that $A \in M_n(\mathbb{C}^n)$ is Hermitian, so that $A^H = A$. Fix $x \in \mathbb{C}^n$. Then,
+	\begin{equation}
+		\inp{x}{Ax} = x^HAx = x^HA^Hx = (Ax)^Hx = \inp{Ax}{x} = \overline{\inp{x}{Ax}}
+	\end{equation}
+	Where the second inequality follows because $A$ is Hermitian and the final inequality follows by the conjugate symmetry of the inner product. Therefore, we have that $\inp{x}{Ax}  = \overline{\inp{x}{Ax}}$. Therefore, $\inp{x}{Ax}$ must be a real number as it equals its complex conjugate. Also observe that $\norm{x}^2$ is by definition a real number. Therefore, $\rho(x) = \frac{\inp{x}{Ax}}{\norm{x}^2}$ can only take on real values when $A$ is Hermitian.
+	
+	Next, suppose  $A \in M_n(\mathbb{C}^n)$ is skew-Hermitian, so that $A^H = -A$. Fix $x \in \mathbb{C}^n$. Then,
+	\begin{equation}
+		\inp{x}{Ax} = x^HAx = (A^Hx)^Hx = (-Ax)^Hx =  -(Ax)^Hx = -\inp{Ax}{x} = - \overline{\inp{x}{Ax}}
+	\end{equation}
+	Therefore, we have that $\inp{x}{Ax} = - \overline{\inp{x}{Ax}}$. However, for this equality to hold, it must be that the real part of this number is $0$, or that $\inp{x}{Ax}$ is imaginary. To see this more clearly, suppose $\inp{x}{Ax} = a + bi$ where $a, b \in \mathbb{R}$. Now, $\inp{x}{Ax} = - \overline{\inp{x}{Ax}}$ implies that $a + bi = -a +bi$. Matching up the real and imaginary parts implies that $a = -a$, or that $a =0$. Thus, $\inp{x}{Ax}$ is imaginary; and therefore, $\rho(x) = \frac{\inp{x}{Ax}}{\norm{x}^2}$ can only take on real values when $A$ is skew-Hermitian.
+\end{proof}
+
+\subsubsection*{Exercise 4.25}
+Let $A \in M_n(\mathbb{C}^n)$ be a normal matrix with eigenvalues $(\lambda_1, \ldots, \lambda_n)$ and corresponding orthonormal eigenvectors $[x_1, \ldots, x_n]$. 
+\begin{claim}
+	The identity matrix can be written as $I = x_1 x_1^H + \cdots + x_n x_n^H$. 
+\end{claim}
+\begin{proof}
+	Let $x_j \in [x_1, \ldots, x_n]$.  Observe that $( x_1 x_1^H + \cdots + x_n x_n^H ) x_j = x_j x_j^H x_j= x_j = I x_j$. The second and third equalities follow because $[x_1, \ldots, x_n]$  is an orthonormal set (so $x_i^Hx_j = 0$ for all $i \neq j$ and $x_j^H x_j = 1$).  Thus, it follows by the final equality that $x_1 x_1^H + \cdots + x_n x_n^H = I$. 
+\end{proof}
+\begin{claim}
+	$A$ can be written as $A = \lambda_1 x_1 x_1^H + \cdots +\lambda_n x_n x_n^H$.
+\end{claim}
+\begin{proof}
+	\begin{align*}
+	A &= A I \\
+	   &= A (x_1 x_1^H + \cdots + x_n x_n^H) \tag{by the above claim} \\
+	   &= Ax_1 x_1^H + \cdots + A x_n x_n^H \\
+	   &= \lambda_1 x_1 x_1^H + \cdots + \lambda_n x_n x_n^H \tag{because $Ax_i = \lambda_i x_i$}
+	\end{align*}
+\end{proof}
+
+\subsubsection*{Exercise 4.27}
+\begin{claim}
+	If $A \in M_n(\mathbb{F}^n)$ is positive definite, then all its diagonal entries are real and positive. 
+\end{claim}
+\begin{proof}
+	Let $A \in M_n(\mathbb{F}^n)$ be positive definite. By definition, $A$ is Hermitian. Note that all Hermitian matrices must have real elements on the diagonal. This follows because if $A$ is Herimitian, then entry $a_{ii} = \overline{a_{ii}}$, which implies that $a_{ii}$ is real. Thus, positive definite matrices have real diagonal entries.
+
+	Now, consider the canonical basis vector $e_i$ (i.e. an $n\times 1$ vector of zeros with a $1$ in position $i$). Let $A$ be written in terms of its columns as $A = [a_1, a_2, \ldots, a_n]$. Since $A$ is positive definite, we have that,
+	\begin{equation}
+	0 < \inp{e_i}{Ae_i} = e_i^T A e_i = e_i^T a_i = a_{ii}
+	\end{equation}
+	Therefore, $a_{ii} > 0$ so that the diagonal elements of $A$ are both real and positive.
+\end{proof}
+
+\subsubsection*{Exercise 4.28}
+\begin{claim}
+	Let $A, B \in M_n (\mathbb{F})$ be positive semidefinite. Then,
+	\begin{equation}
+	0 \leq tr(AB) \leq tr(A)tr(B)
+	\end{equation}
+	Then, $\norm{\cdot}_F$ is a matrix norm.
+\end{claim}
+\begin{proof}
+	Since $A$ and $B$ are positive semidefinite matrices, there exist matrices $S$ and $T$ such that $A = S^HS$ and $B = T^HT$. Thus,
+	\begin{equation}
+		tr(AB) = tr(S^HS  T^HT) = tr(T S^H (T S^H)^H) = tr((T S^H)^H T S^H).
+	\end{equation}
+	Then, $(T S^H)^H T S^H$ is a positive semidefinite. By Exercise 4.26, we know that positive semidefinite matrices have nonnegative diagonal elements, so the trace is weakly positive. Therefore, $ tr(AB) =  tr((T S^H)^H T S^H) \geq 0$. Next, we diagonalize $A$ and $B$ as $A = P D P^{-1}$ and $B = Q E Q^{-1}$. Then,
+	\begin{align*}
+	tr(AB) &= tr(P D P^{-1}   Q E Q^{-1}) \\
+	&= tr(P P^{-1} Q D E Q^{-1}) \\
+	&= tr(Q Q^{-1} DE) \\
+	&= tr(DE) \\
+	&= \sum_i \lambda_i \mu_i \tag{where $\lambda_i$ and $\mu_i$ are the eigenvalues of $A$ and $B$} \\
+	&\leq \sum_i \lambda_i \sum_i \mu_i \\
+	&= tr(A) tr(B)
+	\end{align*}
+	
+	We now verify the properties required of a matrix norm.
+	
+	(Positivity) Note that $\norm{A}_F = tr(A^HA)$. $A^HA$ is a positive semidefinite matrix, so that is diagonal elements are weakly positive, which implies its trace is weakly positive. Thus,  $\norm{A}_F \geq 0$. Conversely, suppose $\norm{A}_F = 0$. Since the diagonal entries of $A^HA$ are weakly positive, it must be that the are all 0 for $\norm{A}_F = 0$. This in turn implies that the singular values of $A$ are all 0. Then, it must be that $A$ is the zero matrix.
+	
+	(Scale preservation) Fix $\alpha \in \mathbb{R}$. Observe that,
+	\begin{equation}
+	\norm{\alpha A}_F = \sqrt{tr((\alpha A)^H (\alpha A)} = \sqrt{\alpha^2tr( A^H A)} = \alpha \sqrt{tr(A^HA)} = \alpha \norm{A}_F 
+	\end{equation}
+	
+	(Triangle Inequality) 
+	
+	\begin{equation}
+	\norm{A+ B}^2_F = tr((A + B)^H(A + B)) = tr(A^HA + A^HB + B^HA + B^HB) = 
+	\end{equation}
+	\begin{align*}
+	\norm{A+ B}^2_F &= tr((A + B)^H(A + B)) = tr(A^HA + A^HB + B^HA + B^HB) \\
+	&= tr(A^HA) + tr(A^HB) + tr(B^HA) + tr(B^HB) \\
+	&= tr(A^HA)  + tr(B^HB) + 2 tr(A^HB) \\
+	&\leq \norm{A}^2_F +  \norm{B}^2_F + 2\norm{A}\norm{B} \tag{by Cauchy-Schwarz} \\
+	&= (\norm{A}_F +  \norm{B}_F)^2
+	\end{align*}
+	Therefore, $\norm{A+ B}_F \leq \norm{A}_F +  \norm{B}_F$.
+	
+	(Submultiplicativity) This is implied by the inequality $0 \leq tr(AB) \leq tr(A)tr(B)$. Therefore,  $\norm{\cdot}_F$ is a matrix norm.
+\end{proof}
+
+\subsubsection*{Exercise 4.31}
+Let $A \in M_{m \times n} (\mathbb{F})$, where $A$ is not identically zero.
+\begin{claim}
+	$\norm{A}_2 = \sigma_1$, where $\sigma_1$ is the largest singular value of $A$.
+\end{claim}
+\begin{proof}
+Let $A = U \Sigma V^H$ be the singular value decomposition of $A$.
+	\begin{align*}
+	\norm{A}_2 &= \sup_{x\neq 0} \frac{\norm{Ax}_2}{\norm{x}_2} \\
+	&= \sup_{x\neq 0} \frac{\norm{U \Sigma V^H x}_2}{\norm{x}_2} \\
+	&=  \sup_{x\neq 0} \frac{\norm{\Sigma V^H x}_2}{\norm{x}_2} \tag{because $U$ orthonormal} \\
+	&=  \sup_{y\neq 0} \frac{\norm{\Sigma y}_2}{\norm{Vy}_2} \tag{change of variables} \\
+	&= \sup_{y\neq 0} \frac{\norm{\Sigma y}_2}{\norm{y}_2} \tag{because $V$ orthonormal} \\
+	&= \norm{\Sigma}_2
+	\end{align*}
+	Observe that $\Sigma$ is a diagonal matrix, and it is well known that $\norm{\Sigma}_2 = \sigma_1$, the largest diagonal element. However, we prove this fact here for completeness. 
+	\begin{lemma}
+	Let $B \in M_n(\mathbb{F})$ be a diagonal matrix with diagonal entries $b_1, b_2, \ldots, b_n$. Then $\norm{B}_2$ is equal to the largest diagonal element.
+	\begin{proof}
+		We provide a lower and upper bound on $\norm{B}_2$, and show that these are both equal to the largest diagonal element of $B$. Without loss of generality, suppose that $b_k$ is the largest diagonal element.  
+		
+		Upper bound: 
+		\begin{align*}
+		\norm{B}^2_2 &= \sup_{x\neq 0} \frac{\norm{Bx}^2_2}{\norm{x}^2_2} \\
+		&=  \sup_{x\neq 0} \frac{b_1^2x^2_1 + \cdots + b^2_n x^2_n}{x^2_1 + \cdots + x^2_n} \\
+		&\leq \sup_{x\neq 0} \frac{b^2_k (x^2_1 + \cdots + x^2_n)}{x^2_1 + \cdots + x^2_n} \\
+		&= b^2_k
+		\end{align*}
+		
+		Lower bound: Let $y$ be a vector of zeros, with a $1$ in entry $k$. Then, 
+		\begin{align*}
+		\norm{B}^2_2 &= \sup_{x\neq 0} \frac{\norm{Bx}^2_2}{\norm{x}^2_2} \\
+		&\geq \frac{\norm{By}^2_2}{\norm{y}^2_2} \\
+		&= b^2_k
+		\end{align*}
+		Therefore, $\norm{B}_2 = b_k$, the largest diagonal element. 
+	\end{proof}
+	\end{lemma}
+	
+	Therefore, by the above lemma, $\norm{A}_2 = \sigma_1$.
+\end{proof}
+
+\begin{claim}
+	If $A$ is invertible, then $\norm{A^{-1}}_2 = \sigma^{-1}_n$.
+\end{claim}
+\begin{proof}
+	Suppose $A$ is in invertible, and let $A = U \Sigma V^H$ be the singular value decomposition of $A$. Then, $A^{-1} = (V^H)^{-1} \Sigma^{-1} U^{-1}$. Observe that this is also a singular value decomposition, because $(V^H)^{-1} = V$ and $U^{-1} = U^H$, because $U$ and $V$ are orthonormal matrices. Note that the largest singular value of $\Sigma^{-1}$ is now $\frac{1}{\sigma_n}$. Therefore, by the first claim in this problem, we have that  $\norm{A^{-1}}_2 = \sigma^{-1}_n$.
+\end{proof}
+
+\begin{claim}
+	$\norm{A^H}^2_2 = \norm{A^T}^2_2 = \norm{A^H A}_2 = \norm{A}^2_2$
+\end{claim}
+\begin{proof}
+	Let $A = U \Sigma V^H$ be the singular value decomposition of $A$. Then,
+	\begin{align*}
+	A^H &= V \Sigma^H U^H \\
+	A^T &= \overline{V} \Sigma U^T \\
+	A^H A &= (V \Sigma^H U^H) (U \Sigma V^H) = V (\Sigma^H \Sigma) V^H 
+	\end{align*}
+	Observe that each of these is also a singular value decomposition. Now, consider the singular values of each of these decompositions. Since the singular values are real numbers, we have that $\Sigma^H = \Sigma$. Therefore, $A^H, A^T$ and $A$ all have the same singular values, and by the first claim in this problem, we have that $\norm{A^H}^2_2 = \norm{A^T}^2_2 =  \norm{A}^2_2 = \sigma^2_1$. Next, observe that the diagonal elements of $(\Sigma^H \Sigma)$ are simply the singular values squared. Therefore, $\norm{A^H A}_2  = \sigma^2_1$. 
+\end{proof}
+
+\begin{claim}
+	If $U \in M_m(\mathbb{F})$ and $V \in M_n(\mathbf{F})$ are orthonormal, then $\norm{UAV}_2 = \norm{A}_2$. 
+\end{claim}
+\begin{proof}
+	\begin{align*}
+	\norm{UAV}_2 &= \sup_{x\neq 0} \frac{\norm{UAVx}_2}{\norm{x}_2} \\
+	&= \sup_{x\neq 0} \frac{\norm{AVx}_2}{\norm{x}_2} \tag{because $U$ orthonormal}\\ 
+	&= \sup_{y\neq 0} \frac{\norm{Ay}_2}{\norm{Vy}_2} \tag{change of variables}\\
+	&=  \sup_{y\neq 0} \frac{\norm{Ay}_2}{\norm{y}_2} \tag{because $V$ orthonormal} \\
+	&= \norm{A}_2
+	\end{align*}
+\end{proof}
+
+\subsubsection*{Exercise 4.32}
+Let $A \in M_{m \times n} (\mathbb{F})$ be of rank $r$.
+\begin{claim}
+	If $U \in M_m (\mathbb{F})$ and $V \in M_n (\mathbb{F})$ are orthonormal, then $\norm{UAV}_F = \norm{A}_F$.
+\end{claim}
+\begin{proof}
+	Let $U \in M_m (\mathbb{F})$ and $V \in M_n (\mathbb{F})$ be orthonormal. Then,
+	\begin{align*}
+	\norm{UAV}^2_F &= tr((UAV)^H (UAV)) \\
+	&= tr(V^H A^H U^H U^H A V) \\
+	&= tr(V^H A^H A V) \\
+	&= tr(V V^H A^H A) \\
+	&= tr(A^H A) \\
+	&= \norm{A}^2_F
+	\end{align*}
+	Therefore, $\norm{UAV}_F = \norm{A}_F$.
+\end{proof}
+
+\begin{claim}
+	$\norm{A}_F = (\sigma^2_1 + \sigma^2_2 + \cdots + \sigma^2_r)^{\frac{1}{2}}$, where $\sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_r > 0$ are the singular values of $A$.
+\end{claim}
+\begin{proof}
+	Let $A = U \Sigma V^H$ be the singular value decomposition of $A$. Then,
+	\begin{align*}
+	\norm{A}_F &= \norm{U \Sigma V^H}_F \\
+	&= \norm{\Sigma}_F \tag{by the above claim, as $U,V$ are orthonormal} \\
+	&= (\sigma^2_1 + \sigma^2_2 + \cdots + \sigma^2_r)^{\frac{1}{2}}
+	\end{align*}
+\end{proof}
+
+\subsubsection*{Exercise 4.33}
+\begin{claim}
+ Let $A \in M_n (\mathbb{F})$. Then, 
+ \begin{equation}
+ 	\norm{A}_2 = \sup_{\norm{x}_2 = 1, \norm{y}_2 = 1} |y^H Ax|
+ \end{equation}
+\end{claim}
+\begin{proof}
+	Let $A \in M_n (\mathbb{F})$. We showed in Exercise 4.31 (i) that $\norm{A}_2 = \norm{\Sigma}_2$, where the singular value decomposition is $A = U \Sigma V^H$. Then,
+	\begin{align*}
+	\sup_{\norm{x}_2 = 1, \norm{y}_2 = 1} |y^H \Sigma x| &= \sup_{\norm{x}_2 = 1, \norm{y}_2 = 1} |\inp{y}{\Sigma x}| \\
+	&\leq \sup_{\norm{x}_2 = 1, \norm{y}_2 = 1} \norm{y}_2 \norm{\Sigma x}_2 \tag{by Cauchy-Schwarz} \\
+	&= \sup_{\norm{x}_2 = 1}  \norm{\Sigma x}_2 \\
+	&= \norm{\Sigma}_2 \tag{by the definition of the 2-norm and lemma in 4.31} \\
+	&= \norm{A}_2 
+	\end{align*}
+\end{proof}
+
+\subsubsection*{Exercise 4.36} 
+Consider the matrix,
+\begin{equation}
+A = \begin{bmatrix}
+-3 & 0 \\ 0 & -2
+\end{bmatrix}
+\end{equation}
+Then, the singular values of $A$ are $\sigma_1 = 3$ and $\sigma_2  = 2$.  However, the eigenvalues of $A$ are $-3$ and $-2$. 
+
+\subsubsection*{Exercise 4.38}
+\begin{claim}
+	If $A \in M_{m \times n} (\mathbb{F})$, then the Moore-Penrose pseudoinverse of $A$ satisfies the following:
+	\begin{enumerate}
+	\item $ A A^{\dagger} A = A$.
+	\item $A^{\dagger} A A^{\dagger} = A^{\dagger}$.
+	\item $(AA^{\dagger})^H = A A^{\dagger}$
+	\item $(A^{\dagger} A)^H = A^{\dagger} A$
+	\item $AA^{\dagger} = proj_{\mathscr{R}(A)}$ is the orthogonal projection onto $\mathscr{R}(A)$
+	\item $A^{\dagger} A =  proj_{\mathscr{R}(A^H)}$ is the orthogonal projection onto $\mathscr{R}(A^H)$
+	\end{enumerate}
+\end{claim}
+\begin{proof}
+	Let $A \in M_{m \times n} (\mathbb{F})$, and let $A = U_1 \Sigma_1 V_1^H$ be the compact form of the SVD of $A$. The Moore-Penrose pseudoinverse of $A$ is $A^{\dagger} = V_1 \Sigma^{-1}_1 U^H_1$.
+	\begin{enumerate}
+	\item Observe that,
+	\begin{align*}
+	A A^{\dagger} A  &= (U_1 \Sigma_1 V_1^H)(V_1 \Sigma^{-1}_1 U^H_1) (U_1 \Sigma_1 V_1^H) \\
+	&=  U_1 \Sigma_1 (V_1^HV_1) \Sigma^{-1}_1 (U^H_1 U_1) \Sigma_1 V_1^H \\
+	&= U_1 \Sigma_1  \Sigma^{-1}_1 \Sigma_1 V_1^H  \\
+	&= U_1 \Sigma_1 V_1^H = A
+	\end{align*}
+	where the second line follows because $U_1$ and $V_1$ are orthonormal. Therefore, $ A A^{\dagger} A = A$.
+	\item Observe that,
+	\begin{align*}
+	A^{\dagger} A A^{\dagger} &= (V_1 \Sigma^{-1}_1 U^H_1)(U_1 \Sigma_1 V_1^H )(V_1 \Sigma^{-1}_1 U^H_1) \\
+	&= V_1 \Sigma^{-1}_1 (U^H_1U_1) \Sigma_1 (V_1^H V_1) \Sigma^{-1}_1 U^H_1 \\
+	&= V_1 \Sigma^{-1}_1 \Sigma_1 \Sigma^{-1}_1 U^H_1 \\
+	&= V_1 \Sigma^{-1}_1 U^H_1 
+	\end{align*}
+		where the second line follows because $U_1$ and $V_1$ are orthonormal. Therefore, $ A^{\dagger} A A^{\dagger} = A^{\dagger}$.
+	\item Observe that,
+	\begin{align*}
+	(AA^{\dagger})^H &= ((U_1 \Sigma_1 V_1^H)(V_1 \Sigma^{-1}_1 U^H_1))^H \\
+	&= U_1 (\Sigma_1^{-1})^H V_1^H V_1 \Sigma_1^HU_1^H \\
+	&= U_1 U_1^H \\
+	&= U_1 I U_1^H \\
+	&= U_1 \Sigma_1 \Sigma_1^{-1} U_1^H \\
+	&= U_1 \Sigma_1 V_1^H V_1 \Sigma_1^{-1} U_1^H \\
+	&= A A^{\dagger}
+	\end{align*}
+	\item Observe that,
+	\begin{align*}
+	(A^{\dagger} A)^H &= ((V_1 \Sigma^{-1}_1 U^H_1)(U_1 \Sigma_1 V_1^H))^H \\
+	&= V_1 \Sigma_1^H U_1^H U_1 (\Sigma_1^{-1})^H V_1^H \\
+	&= V_1 V_1^H \\
+	&= V_1 I V_1^H \\
+	&= V_1 \Sigma_1^{-1}  \Sigma_1 V_1^H \\
+	&= V_1 \Sigma_1^{-1}  U_1^H U_1 \Sigma_1 V_1^H \\
+	&= A^{\dagger} A
+	\end{align*}
+	\item We need to show that $AA^{\dagger}$ is indeed a projection and also orthogonal. To show that $AA^{\dagger}$ is a projection, we must show that $(AA^{\dagger})(AA^{\dagger}) = AA^{\dagger}$. This easily follows from (1). Indeed, $(AA^{\dagger})(AA^{\dagger}) = (AA^{\dagger}A)A^{\dagger} = A A^{\dagger}$.  Next, write $U_1$ in terms of its columns as $U_1 = [u_1, \cdots, u_r]$.  By the SVD, $U_1$ is an orthonormal basis for $\mathscr{R}(A)$. Then, using (3),
+	\begin{align*}
+	AA^{\dagger} x &= U_1 U^H_1 x \\
+	&= U_1 [u^H_1 x, \cdots, u^H_n x] \\
+	&= \sum_{i=1}^{r} u_i^H x u_i \tag{r is the number of singular values of A} \\
+	&= \sum_{i=1}^r \inp{u_i}{x} u_i \\
+	&= proj_{\mathscr{R}(A)} x
+	\end{align*}
+	Therefore, by definition, $AA^{\dagger}$ is an orthogonal projection onto $\mathscr{R}(A)$.
+	\item The proof is analogous to the proof of (5). Write $V_1 = [v_1, \cdots, v_r]$. By the SVD, $V_1$ is an orthonormal basis for $\mathscr{R}(A^H)$. Then, by (4), 
+	\begin{align*}
+	A^{\dagger} A x &= V_1 V^H_1 x \\
+	&= V_1 [v^H_1 x, \cdots, v^H_n x] \\
+	&= \sum_{i=1}^{r} v_i^H x v_i \tag{r is the number of singular values of A} \\
+	&= \sum_{i=1}^r \inp{v_i}{x} v_i \\
+	&= proj_{\mathscr{R}(A^H)} x
+	\end{align*}
+	Therefore, by definition, $A^{\dagger} A $ is an orthogonal projection onto $\mathscr{R}(A^H)$.
+	\end{enumerate}
+\end{proof}
+
+\end{document}
+
+
