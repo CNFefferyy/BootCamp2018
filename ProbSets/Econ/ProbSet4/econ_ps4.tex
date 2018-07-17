@@ -1,0 +1,244 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{listings}
+\lstset{frame=single,
+  language=Python,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{mathrsfs}
+
+\usepackage{harvard}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{derivation}{Derivation} % Number derivations on their own
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition} % Number propositions on their own
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+
+\usepackage{mathtools}
+% commands
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\usepackage{mathrsfs}
+
+
+\begin{document}
+
+\begin{flushleft}
+  \textbf{\large{Problem Set \#4, DSGE}} \\
+  OSM Lab: Econ \\
+  Rebekah Dix
+\end{flushleft}
+
+\vspace{5mm}
+\section*{DSGE Models}
+
+\subsubsection*{Exercise 1}
+We guess that the policy function in the Brock and Mirman model takes the following form: $K_{t+1} = A e^{z_t} K_t^{\alpha}$. The Euler equation is given by,
+\begin{equation}
+	\frac{1}{e^{z_t}K_t^{\alpha} - K_{t+1}} = \beta E_t \left[ \frac{\alpha e^{z_{t +1}} K_{t+1}^{\alpha -1}}{ e^{z_{t +1}} K_{t+1}^{\alpha} - K_{t+2}}  \right]
+\end{equation}
+To verify our guess, we substitute $K_{t+1} = A e^{z_t} K_t^{\alpha}$ into each side of the Euler equation and see if we are able to find a value of $A$ that will cause the LHS to equal the RHS. Starting with the LHS, observe that,
+\begin{equation}
+	\frac{1}{e^{z_t}K_t^{\alpha} - K_{t+1}}  = \frac{1}{e^{z_t}K_t^{\alpha} - A e^{z_t} K_t^{\alpha}} = \frac{1}{e^{z_t} K_t^{\alpha} (1 - A)}
+\end{equation}
+To simplify the RHS, observe that $E[z_{t+1}] = \rho z_t$. Then,
+\begin{align*}
+\beta E_t \left[ \frac{\alpha e^{z_{t +1}} K_{t+1}^{\alpha -1}}{ e^{z_{t +1}} K_{t+1}^{\alpha} - K_{t+2}}  \right]  &= \beta E_t \left[ \frac{\alpha e^{z_{t +1}} (A e^{z_t} K_t^{\alpha})^{\alpha -1}}{ e^{z_{t +1}} (A e^{z_t} K_t^{\alpha})^{\alpha} - Ae^{z_{t+1}} (Ae^{z_t} K_t^{\alpha})^{\alpha}}  \right]  \\
+&= \frac{\alpha \beta}{Ae^{z_t}K_t^{\alpha}(1-A)}
+\end{align*}
+Since we must have that the LHS equals the RHS, it must be that $\frac{\beta\alpha}{A} = 1$, so that $A = \alpha \beta$. Therefore, the policy function is given by $k_{t+1} = \Phi(k_t, z_t) = \alpha \beta e^{z_t} k_t^{\alpha}$.
+
+\subsubsection*{Exercise 2}
+Consider the following functional forms:
+\begin{align*}
+	u(c_t, l_t) &= \ln c_t+ a \ln(1 - l_t) \\
+	F(K_t, L_t, z_t) &= e^{z_t} K_t^{\alpha}L_t^{1-\alpha}
+\end{align*}
+Then, the seven equations characterizing equations and seven unknowns: $\{c_t, k_t, l_t, w_t, r_t, T_t, z_t\}$ for the model are as follows:
+\begin{align}
+	c_t &= (1 - \tau)[w_tl_t + (r_t -\delta)k_t] + k_t + T_t - k_{t+1} \\
+	\frac{1}{c_t} &= \beta E_t\left[\frac{1}{c_{t+1}}[(r_{t+1} - \delta)(1 - \tau) + 1]\right] \\
+	\frac{a}{1-l_t} &= \frac{1}{c_t} w_t (1-\tau) \\
+	r_t &= \alpha e^{z_t} k_t^{\alpha -1} l_t^{1-\alpha} =  \alpha e^{z_t}  \left(\frac{l_t}{k_t} \right)^{1 - \alpha} \\
+	w_t &= (1 - \alpha) e^{z_t} k_t^{\alpha} l_t ^{-\alpha} = (1 - \alpha) e^{z_t} \left(\frac{k_t}{l_t} \right)^{\alpha} \\	
+	 T_t &= \tau[w_tl_t + (r_t - \delta)k_t] \\
+	z_t &= (1-\rho_z)\bar{z} + \rho_z z_{t-1} + \epsilon^z_t; \quad \epsilon^z_t \sim i.i.d. (0, \sigma^2_z)
+\end{align}
+We can't use the same tricks as Exercise 1 since households now optimize over both their leisure and consumption decisions. 
+
+\subsubsection*{Exercise 3}
+Consider the following functional forms:
+\begin{align*}
+	u(c_t, l_t) &= \frac{c_t^{1-\gamma}-1}{1 - \gamma} + a \ln(1 - l_t) \\
+	F_(K_t, L_t, z_t) &= e^{z_t} K_t^{\alpha}L_t^{1-\alpha}
+\end{align*}
+Then, the seven equations characterizing equations and seven unknowns: $\{c_t, k_t, l_t, w_t, r_t, T_t, z_t\}$ for the model are as follows:
+\begin{align}
+	c_t &= (1 - \tau)[w_tl_t + (r_t -\delta)k_t] + k_t + T_t - k_{t+1} \\
+	c_t ^{-\gamma} &= \beta E_t\left[ c_{t+1}^{-\gamma} [(r_{t+1} - \delta)(1 - \tau) + 1]\right] \\
+	\frac{a}{1-l_t} &= c_t ^{-\gamma} w_t (1-\tau) \\
+	r_t &= \alpha e^{z_t} k_t^{\alpha -1} l_t^{1-\alpha} =  \alpha e^{z_t}  \left(\frac{l_t}{k_t} \right)^{1 - \alpha} \\
+	w_t &= (1 - \alpha) e^{z_t} k_t^{\alpha} l_t ^{-\alpha} = (1 - \alpha) e^{z_t} \left(\frac{k_t}{l_t} \right)^{\alpha} \\	
+	 T_t &= \tau[w_tl_t + (r_t - \delta)k_t] \\
+	z_t &= (1-\rho_z)\bar{z} + \rho_z z_{t-1} + \epsilon^z_t; \quad \epsilon^z_t \sim i.i.d. (), \sigma^2_z)
+\end{align}
+
+\subsubsection*{Exercise 4}
+Consider the following function forms:
+\begin{align*}
+	u(c_t, l_t) &= \frac{c_t^{1-\gamma} - 1}{1- \gamma} + a \frac{(1 - l_t)^{1 - \xi}-1}{1 - \xi} \\
+	F(K_t, L_t, z_t) &= e^{z_t}[\alpha K^{\eta}_t + (1 - \alpha)L^{\eta}_t]^{\frac{1}{\eta	}}
+\end{align*}
+Then, the seven equations characterizing equations and seven unknowns: $\{c_t, k_t, l_t, w_t, r_t, T_t, z_t\}$ for the model are as follows:
+\begin{align}
+	c_t &= (1 - \tau)[w_tl_t + (r_t -\delta)k_t] + k_t + T_t - k_{t+1} \\
+	c_t ^{-\gamma} &= \beta E_t\left[ c_{t+1}^{-\gamma} [(r_{t+1} - \delta)(1 - \tau) + 1]\right] \\
+	\frac{a}{(1-l_t)^{\xi}} &= c_t ^{-\gamma} w_t (1-\tau) \\
+	r_t &= \alpha e^{z_t} k_t^{\eta - 1} [\alpha k_t^{\eta} + (1 - \alpha) l_t^{\eta}]^{\frac{1 - \eta}{\eta}} \\
+	w_t &= (1 - \alpha) e^{z_t} l_t^{\eta - 1} [\alpha k_t^{\eta} + (1 - \alpha) l_t^{\eta}]^{\frac{1 - \eta}{\eta}} \\
+	 T_t &= \tau[w_tl_t + (r_t - \delta)k_t] \\
+	z_t &= (1-\rho_z)\bar{z} + \rho_z z_{t-1} + \epsilon^z_t; \quad \epsilon^z_t \sim i.i.d. (), \sigma^2_z)
+\end{align}
+
+\subsubsection*{Exercise 5}
+Consider the following functional forms:
+\begin{align*}
+	u(c_t) &= \frac{c_t^{1-\gamma} - 1}{1- \gamma} \\
+	F(K_t, L_t, z_t) &= K_t^{\alpha} (L_t e_t^{z_t})^{1 - \alpha}
+\end{align*}
+and we assume $l_t = 1$. Then, by the labor market clearing condition, we know that $L_t = l_t = 1$. The following equations characterize the model:
+\begin{align}
+	c_t &= (1 - \tau)[w_t + (r_t - \delta)k_t] + k_t + T_t - k_{t+1} \\
+	c_t ^{-\gamma} &= \beta E_t \left[ c_{t+1}^{-\gamma} [(r_{t+1} - \delta)(1 - \tau) + 1] \right] \\
+	r_t &= \alpha k_t ^{\alpha - 1} (l_t e_t^{z_t})^{1 - \alpha} = \alpha \left(\frac{e^{z_t}}{k_t} \right)^{1 - \alpha} \\
+	w_t &= (1 - \alpha) k_t ^{\alpha} (e_t^{z_t})^{1 - \alpha} \\
+	 T_t &= \tau [w_t + (r_t - \delta)k_t ] \\
+	z_t &= (1 - \rho_z)\bar{z} + \rho_z z_{t-1} + \epsilon^z_t; \quad \epsilon^z_t \sim i.i.d (0, \sigma^2_z) 
+\end{align}
+
+The steady-state versions of these equations are:
+\begin{align}
+	\bar{c} &= (1 - \tau)[\bar{w}+ (\bar{r} - \delta) \bar{k}] + \bar{k} + \bar{T} - \bar{k} \\
+	\bar{T} &= \tau [\bar{w} + (\bar{r}- \delta)\bar{k} ] \\
+\end{align}
+and
+\begin{align}
+	\bar{c} ^{-\gamma} &= \beta E_t \left[ \bar{c}^{-\gamma} [(\bar{r} - \delta)(1 - \tau) + 1] \right] \\
+	\bar{r} &= \alpha \bar{k} ^{\alpha - 1} (e^{\bar{z}})^{1 - \alpha} = \alpha \left(\frac{e^{\bar{z}}}{\bar{k}} \right)^{1 - \alpha} \\
+	\bar{w} &= (1 - \alpha) \bar{k} ^{\alpha} (e^{\bar{z}})^{1 - \alpha} \\
+	\bar{z} &= (1 - \rho_z)\bar{z} + \rho_z \bar{z} + \epsilon^z_t; \quad \epsilon^z_t \sim i.i.d (0, \sigma^2_z) 
+\end{align}
+
+We can solve these equations analytically to find that,
+\begin{align*}
+	\bar{r} &= \frac{1 - \beta}{\beta (1 - \tau)} + \delta \\
+	\bar{k} &= \left(  \frac{\bar{r}}{\alpha}\right)^{\frac{1}{\alpha - 1}} \\
+	\bar{w} &= (1 - \alpha) \bar{k} ^{\alpha} \\
+	\bar{c} &= (1 - \tau)[\bar{w}+ (\bar{r} - \delta) \bar{k}]  \bar{T}  \\
+	\bar{T} &= \tau [\bar{w} + (\bar{r}- \delta)\bar{k} ] \\
+\end{align*}
+See the Jupyter notebook for a numerical comparison of the algebraic and numerical solutions for the steady-state variables.
+
+\subsubsection*{Exercise 6}
+Consider the following function forms:
+\begin{align*}
+	u(c_t, l_t) &= \frac{c_t^{1-\gamma} - 1}{1- \gamma} + a \frac{(1 - l_t)^{1 - \xi}-1}{1 - \xi} \\
+	F(K_t, L_t, z_t) &= K_t^{\alpha} (L_t e^{z_t})^{1 - \alpha}
+\end{align*}
+Then, the seven equations characterizing equations and seven unknowns: $\{c_t, k_t, l_t, w_t, r_t, T_t, z_t\}$ for the model are as follows:
+\begin{align}
+	c_t &= (1 - \tau)[w_tl_t + (r_t -\delta)k_t] + k_t + T_t - k_{t+1} \\
+	c_t ^{-\gamma} &= \beta E_t\left[ c_{t+1}^{-\gamma} [(r_{t+1} - \delta)(1 - \tau) + 1]\right] \\
+	\frac{a}{(1-l_t)^{\xi}} &= c_t ^{-\gamma} w_t (1-\tau) \\
+	r_t &= \alpha \left( \frac{l_t e^{z_t}}{k_t} \right)^{1 - \alpha} \\
+	w_t &= (1 - \alpha) e^{z_t} \left( \frac{k_t}{l_t e^{z_t}} \right)^{\alpha} \\
+	 T_t &= \tau[w_tl_t + (r_t - \delta)k_t] \\
+	z_t &= (1-\rho_z)\bar{z} + \rho_z z_{t-1} + \epsilon^z_t; \quad \epsilon^z_t \sim i.i.d. (0, \sigma^2_z)
+\end{align}
+
+The steady state version of these equations are:
+\begin{align}
+	\bar{c} &= (1 - \tau)[\bar{w} \bar{l} + (\bar{r} -\delta)\bar{k}] + \bar{k} + \bar{T} - \bar{k} \\
+	\bar{c} ^{-\gamma} &= \beta E_t\left[ \bar{c}^{-\gamma} [(\bar{r} - \delta)(1 - \tau) + 1]\right] \\
+	\frac{a}{(1-\bar{l})^{\xi}} &= \bar{c} \bar{w} (1-\tau) \\
+	\bar{r} &= \alpha \left( \frac{\bar{l} e^{\bar{z}}}{\bar{k}} \right)^{1 - \alpha} \\
+	\bar{w} &= (1 - \alpha) e^{\bar{z}} \left( \frac{\bar{k}}{\bar{l} e^{\bar{z}}} \right)^{\alpha} \\
+	 \bar{T} &= \tau[\bar{w} \bar{l} + (\bar{r} - \delta)\bar{k}] \\
+	\bar{z} &= (1-\rho_z)\bar{z} + \rho_z \bar{z} + \epsilon^{\bar{z}}; \quad \epsilon^z_t \sim i.i.d. (0, \sigma^2_z)
+\end{align}
+
+\section*{Linearization Methods}
+\subsubsection*{Exercise 3}
+We have that,
+\begin{equation}\label{uhlig}
+	E_t [F \tilde{X}_{t+1} + G  \tilde{X}_t + H  \tilde{X}_{t-1} + L  \tilde{Z}_{t+1} + M  \tilde{Z}_t]  = 0
+\end{equation}
+and $ \tilde{Z}_t = N  \tilde{Z}_{t-1} + \epsilon_t$ and by hypothesis, $ \tilde{X}_t = P  \tilde{X}_{t-1} + Q  \tilde{Z}_t$. We use these relationships to put Equation \ref{uhlig} in terms of $ \tilde{X}_{t-1}$ and $ \tilde{Z}_t$. Then, by substitution and that $E[\epsilon_t] = 0$ for all $t$, we have that,
+\begin{align*}
+	0 &= E_t [F \tilde{X}_{t+1} + G  \tilde{X}_t + H  \tilde{X}_{t-1} + L  \tilde{Z}_{t+1} + M  \tilde{Z}_t]  \\
+	&= E_t [ F (P( P  \tilde{X}_{t-1} + Q  \tilde{Z}_t) + Q( N  \tilde{Z}_{t} + \epsilon_{t+1})) + G ( P  \tilde{X}_{t-1} + Q  \tilde{Z}_t) + H  \tilde{X}_{t-1} + L(N  \tilde{Z}_{t-1} + \epsilon_t) + M  \tilde{Z}_t ] \\
+	&= [(FP + G)P + H] \tilde{X}_{t-1} + [(FQ + L)N + (FP + G)Q + M]\tilde{Z}_t
+\end{align*}
+
+\section*{Perturbation Methods}
+
+\subsubsection*{Exercise 1}
+We compute the third derivative of $F(x(u),u)$ with respect to $u$ and find that,
+\begin{equation}
+	x_{uuu} = -\frac{F_{xxx}x^3_u + 3(F_{xxu}x^2_u + F_{uux}x_u + F_{xu}x_{uu} + F_{xx}x_ux_{uu}) + F_{uuu}}{F_x}
+\end{equation}
+where all arguments are evaluated at $u_0$.
+
+\end{document}
